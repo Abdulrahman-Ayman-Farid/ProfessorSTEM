@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="display-4 text-center mb-4">🧪 ProfessorSTEM: AI Learning Companion</h1>
+        
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Start Learning</h2>
+                
+                <form action="{{ url_for('start_learning') }}" method="POST">
+                    <div class="mb-3">
+                        <label for="grade" class="form-label">Select Grade:</label>
+                        <input type="range" class="form-range" id="grade" name="grade" min="1" max="12" value="7" 
+                               oninput="gradeValue.textContent = this.value">
+                        <div class="text-center">Grade: <span id="gradeValue">7</span></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="subject" class="form-label">Choose Subject:</label>
+                        <select class="form-select" id="subject" name="subject" required>
+                            <option value="Math">Math</option>
+                            <option value="Science">Science</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="topic" class="form-label">Enter Topic:</label>
+                        <input type="text" class="form-control" id="topic" name="topic" required
+                               placeholder="e.g., Algebra, Physics, Chemistry">
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Start Learning</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h3 class="h5">📚 Personalized Learning</h3>
+                            <p class="card-text">AI-powered lessons tailored to your grade level and learning style.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h3 class="h5">🎯 Adaptive Assessment</h3>
+                            <p class="card-text">Real-time feedback and progress tracking to optimize your learning journey.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h3 class="h5">🚀 Interactive Practice</h3>
+                            <p class="card-text">Engaging quizzes and exercises to reinforce your understanding.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2 class="text-center mb-4">📊 Your Results</h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <div class="card bg-light mb-3">
+                            <div class="card-body">
+                                <h3 class="h5">Score</h3>
+                                <p class="display-6">{{ correct }}/{{ total }}</p>
+                                <div class="progress">
+                                <div class="progress-bar" role="progressbar" id="score-progress">
+                                </div>
+                                <script>
+                                    document.getElementById('score-progress').style.width = '{{ (correct / total * 100)|round }}%';
+                                </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card bg-light mb-3">
+                            <div class="card-body">
+                                <h3 class="h5">Time Taken</h3>
+                                <p class="display-6">{{ time_taken }}s</p>
+                                <p class="text-muted">Average: {{ (time_taken / total)|round }}s per question</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card bg-light mb-3">
+                            <div class="card-body">
+                                <h3 class="h5">Proficiency</h3>
+                                <p class="display-6">{{ proficiency|title }}</p>
+                                <p class="text-muted">Based on ML analysis</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <div class="alert alert-info" role="alert">
+                <h4 class="alert-heading">What's Next?</h4>
+                <p>Based on your performance, we've created a personalized study plan to help you improve!</p>
+            </div>
+
+            <div class="mt-4">
+                <a href="{{ url_for('study_plan') }}" class="btn btn-primary btn-lg">
+                    View Study Plan 📚
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

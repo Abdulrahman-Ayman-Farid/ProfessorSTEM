@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2 class="text-center mb-4">📝 Interactive Quiz</h2>
+
+        <form action="{{ url_for('submit_answer') }}" method="POST">
+            {% for question in questions %}
+                {% set question_num = start_idx + loop.index0 %}
+                <!-- Question Section -->
+                <div class="card mb-5">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="h4 mb-0">Question {{ start_idx + loop.index }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="question-text mb-4 pb-3 border-bottom">
+                            <p class="lead mb-0">{{ question.question }}</p>
+                        </div>
+                        
+                        <!-- Answers Section -->
+                        <div class="answers-section mt-4">
+                            <h4 class="h5 mb-3">Select Your Answer:</h4>
+                            <div class="row g-3">
+                                {% for option in question.options %}
+                                    <div class="col-md-6">
+                                        <div class="card h-100 {% if loop.index % 2 == 0 %}bg-light{% endif %}">
+                                            <div class="card-body">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" 
+                                                           name="answers[{{ question_num }}]" 
+                                                           value="{{ option }}" 
+                                                           id="q{{ question_num }}_{{ loop.index }}"
+                                                           required>
+                                                    <label class="form-check-label" for="q{{ question_num }}_{{ loop.index }}">
+                                                        {{ option }}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="d-flex justify-content-between align-items-center mt-4">
+                <div>
+                    {% if current_page > 0 %}
+                        <a href="{{ url_for('quiz', page=current_page-1) }}" class="btn btn-secondary">
+                            ⬅️ Previous Page
+                        </a>
+                    {% endif %}
+                </div>
+
+                <div class="text-center">
+                    Page {{ current_page + 1 }} of {{ total_pages }}
+                </div>
+
+                <div>
+                    {% if current_page < total_pages - 1 %}
+                        <button type="submit" class="btn btn-primary">
+                            Save & Continue ➡️
+                        </button>
+                    {% else %}
+                        <button type="submit" class="btn btn-success">
+                            Complete Quiz 🎉
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

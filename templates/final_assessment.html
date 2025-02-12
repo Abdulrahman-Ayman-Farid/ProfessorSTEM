@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2 class="text-center mb-4">🎯 Final Assessment</h2>
+
+        <div class="progress mb-4" style="height: 10px;">
+            <div class="progress-bar" role="progressbar" id="progress-bar">
+            </div>
+            <script>
+                document.getElementById('progress-bar').style.width = '{{ (question_number / 5 * 100)|round }}%';
+            </script>
+        </div>
+
+        <form action="{{ url_for('submit_final_answer') }}" method="POST">
+            <!-- Question Section -->
+            <div class="card mb-5">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="h4 mb-0">Final Question {{ question_number }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="question-text mb-4 pb-3 border-bottom">
+                        <p class="lead mb-0">{{ question.question }}</p>
+                    </div>
+                    
+                    <!-- Answers Section -->
+                    <div class="answers-section mt-4">
+                        <h4 class="h5 mb-3">Select Your Answer:</h4>
+                        <div class="row g-3">
+                            {% for option in question.options %}
+                                <div class="col-md-6">
+                                    <div class="card h-100 {% if loop.index % 2 == 0 %}bg-light{% endif %}">
+                                        <div class="card-body">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" 
+                                                       name="answer" value="{{ option }}" 
+                                                       id="opt{{ loop.index }}" required>
+                                                <label class="form-check-label" for="opt{{ loop.index }}">
+                                                    {{ option }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                {% if question_number < 5 %}
+                                    Next Question ➡️
+                                {% else %}
+                                    Complete Assessment 🎉
+                                {% endif %}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="alert alert-info mt-4" role="alert">
+            <div class="d-flex align-items-center">
+                <div class="me-3">ℹ️</div>
+                <div>
+                    <h4 class="alert-heading mb-2">Final Assessment</h4>
+                    <p class="mb-0">
+                        This assessment will evaluate your progress after completing the study plan.
+                        Take your time and answer carefully!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
