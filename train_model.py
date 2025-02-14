@@ -8,11 +8,11 @@ from sklearn.metrics import classification_report
 import pickle
 
 # Step 1: Load Data from CSV
-df = pd.read_csv("student_science_levels.csv")  # Change this to your actual CSV file path
+df = pd.read_csv("StudentLevel.csv")  # Change this to your actual CSV file path
 
 # Step 2: Define Features and Target
-X = df[["Age", "School_Level", "Science_Grade"]]  # Features: Age, School_Level, Science_Grade
-y = df["Science_Level"]  # Target: Science_Level (Low, Intermediate, High)
+X = df[["Age", "School_Level", "Grade"]]  # Features: Age, School_Level, Grade
+y = df["Level"]  # Target: Level (Low, Intermediate, High)
 
 # Step 3: Split Data into Training and Testing Sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -23,7 +23,7 @@ all_categories = ['Primary', 'Secondary']  # Example categories
 
 # Step 5: Create a Preprocessing Pipeline
 # For numerical features, use StandardScaler
-numeric_features = ["Age", "Science_Grade"]
+numeric_features = ["Age", "Grade"]
 numeric_transformer = StandardScaler()
 
 # For categorical features, use OneHotEncoder
