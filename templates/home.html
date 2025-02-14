@@ -9,14 +9,30 @@
             <div class="card-body">
                 <h2 class="card-title text-center mb-4">Start Learning</h2>
                 
-                <form action="{{ url_for('start_learning') }}" method="POST">
+                <!-- Form to collect Age, School_Level, Grade, Subject, and Topic -->
+                <form action="{{ url_for('predict_level') }}" method="POST">
+                    <!-- Age Input -->
                     <div class="mb-3">
-                        <label for="grade" class="form-label">Select Grade:</label>
-                        <input type="range" class="form-range" id="grade" name="grade" min="1" max="12" value="7" 
-                               oninput="gradeValue.textContent = this.value">
-                        <div class="text-center">Grade: <span id="gradeValue">7</span></div>
+                        <label for="age" class="form-label">Age:</label>
+                        <input type="number" class="form-control" id="age" name="age" required min="5" max="18">
                     </div>
 
+                    <!-- School Level Input -->
+                    <div class="mb-3">
+                        <label for="school_level" class="form-label">School Level:</label>
+                        <select class="form-select" id="school_level" name="school_level" required>
+                            <option value="Primary">Primary</option>
+                            <option value="Secondary">Secondary</option>
+                        </select>
+                    </div>
+
+                    <!-- Grade Input -->
+                    <div class="mb-3">
+                        <label for="grade" class="form-label">Grade:</label>
+                        <input type="number" class="form-control" id="grade" name="grade" required min="0" max="100">
+                    </div>
+
+                    <!-- Subject Selection -->
                     <div class="mb-3">
                         <label for="subject" class="form-label">Choose Subject:</label>
                         <select class="form-select" id="subject" name="subject" required>
@@ -25,16 +41,31 @@
                         </select>
                     </div>
 
+                    <!-- Topic Input -->
                     <div class="mb-3">
                         <label for="topic" class="form-label">Enter Topic:</label>
                         <input type="text" class="form-control" id="topic" name="topic" required
                                placeholder="e.g., Algebra, Physics, Chemistry">
                     </div>
 
+                    <!-- Predict Level Button -->
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary btn-lg">Start Learning</button>
+                        <button type="submit" class="btn btn-primary btn-lg">Predict Level</button>
                     </div>
                 </form>
+
+                <!-- Display predicted Level and Generate Quiz Button -->
+                {% if predicted_level %}
+                <div class="mt-4 text-center">
+                    <h4>Predicted Level: <strong>{{ predicted_level }}</strong></h4>
+                    <form action="{{ url_for('start_learning') }}" method="POST">
+                        <input type="hidden" name="level" value="{{ predicted_level }}">
+                        <input type="hidden" name="subject" value="{{ subject }}">
+                        <input type="hidden" name="topic" value="{{ topic }}">
+                        <button type="submit" class="btn btn-success btn-lg mt-3">Generate Quiz</button>
+                    </form>
+                </div>
+                {% endif %}
             </div>
         </div>
 
