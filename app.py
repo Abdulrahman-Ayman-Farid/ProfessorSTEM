@@ -21,6 +21,7 @@ logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 app.secret_key = '16a4a22af5c3ffa329130ffb50b64d75bf2733e370844174dea6ab456a0da06a'
+app.config['SESSION_REFRESH_EACH_REQUEST'] = True
 
 # Load environment variables
 load_dotenv()
@@ -75,6 +76,17 @@ class CentralAgent:
     def __init__(self):
         self.math_agent = SubjectAgent(math_model)
         self.science_agent = SubjectAgent(science_model)
+    
+    def assess_proficiency(self, correct, total, time_taken):
+        score_percentage = (correct / total) * 100
+        avg_time_per_q = time_taken / total
+        
+        if score_percentage >= 85 and avg_time_per_q <= 45:
+            return "advanced"
+        elif score_percentage >= 70 or (score_percentage >= 60 and avg_time_per_q <= 60):
+            return "intermediate"
+        else:
+            return "beginner"
 
     def generate_quiz(self, topic, level, subject):
         if not isinstance(topic, str) or not isinstance(level, str) or not isinstance(subject, str):
@@ -131,11 +143,10 @@ def predict_level():
     try:
         # Get user inputs
         age = int(request.form.get('age'))
-        school_level = request.form.get('school_level'))
+        school_level = request.form.get('school_level')
         grade = int(request.form.get('grade'))
-        subject = request.form.get('subject'))
-        topic = request.form.get('topic'))
-
+        subject = request.form.get('subject')
+        topic = request.form.get('topic')
         # Create a DataFrame for prediction
         input_data = pd.DataFrame({
             "Age": [age],
@@ -187,37 +198,39 @@ def start_learning():
             'current_q': 0,
             'generated': True
         }
+        session.modified = True
 
-        return redirect(url_for('quiz'))  # Redirect to the quiz route
+        return redirect(url_for('quiz'))
     except Exception as e:
         logger.error(f"Error starting learning session: {str(e)}")
         flash('An error occurred. Please try again.', 'error')
         return redirect(url_for('home'))
 
-@@app.route('/quiz')
-def quiz():
+@app.route('/quiz')
+@app.route('/quiz/<int:page>')
+def quiz(page=None):
     if 'quiz' not in session:
         return redirect(url_for('home'))
     
     try:
         quiz_data = session['quiz']
+        total_questions = len(quiz_data.get('questions', []))
         
-        if not quiz_data.get('generated'):
-            quiz_raw = central_agent.generate_quiz(quiz_data['topic'], quiz_data['level'], quiz_data['subject'])
-            questions = central_agent.parse_quiz(quiz_raw)
+        logger.info(f"Quiz page request - Page: {page}, Current Q: {quiz_data.get('current_q', 0)}")
+        
+        # Validate current_q is within bounds
+        if quiz_data.get('current_q', 0) >= total_questions:
+            quiz_data['current_q'] = 0
             
-            if not questions:
-                flash('Failed to generate quiz questions', 'error')
-                return redirect(url_for('home'))
-                
-            quiz_data.update({
-                "questions": questions,
-                "start_time": time.time(),
-                "current_q": 0,
-                "generated": True
-            })
-            session['quiz'] = quiz_data
-
+        # If page is explicitly provided, update current_q
+        if page is not None:
+            new_current_q = page * 5
+            if new_current_q < total_questions:
+                quiz_data['current_q'] = new_current_q
+                session['quiz'] = quiz_data
+                session.modified = True
+                logger.info(f"Updated current_q to {new_current_q}")
+        
         questions = quiz_data.get('questions', [])
         current_page = quiz_data['current_q'] // 5
         start_idx = current_page * 5
@@ -243,8 +256,10 @@ def submit_answer():
     
     try:
         quiz_data = session['quiz']
+        action = request.form.get('action', 'next')
         answers_dict = {}
         
+        # Process submitted answers
         for key, value in request.form.items():
             if key.startswith('answers[') and key.endswith(']'):
                 try:
@@ -253,25 +268,54 @@ def submit_answer():
                 except ValueError:
                     continue
         
-        current_answers = quiz_data.get('answers', [])
-        for idx, answer in answers_dict.items():
-            while len(current_answers) <= idx:
-                current_answers.append(None)
-            current_answers[idx] = answer
+        # Update answers in session
+        total_questions = len(quiz_data['questions'])
+        current_answers = quiz_data.get('answers', [None] * total_questions)
         
+        # Ensure answers array is sized correctly
+        if len(current_answers) < total_questions:
+            current_answers.extend([None] * (total_questions - len(current_answers)))
+        
+        logger.info(f"Processing answers - Current answers count: {len(current_answers)}")
+        logger.info(f"New answers being submitted: {answers_dict}")
+        
+        # Update answers
+        for idx, answer in answers_dict.items():
+            if idx < total_questions:
+                current_answers[idx] = answer.strip() if answer else None
+        
+        # Update quiz data and session
         quiz_data['answers'] = current_answers
         session['quiz'] = quiz_data
-
+        session.modified = True
+        
+        # Calculate navigation
         current_page = quiz_data['current_q'] // 5
-        total_questions = len(quiz_data['questions'])
         total_pages = (total_questions + 4) // 5
-
-        if current_page >= total_pages - 1:
+        
+        logger.info(f"Navigation - Action: {action}, Current Page: {current_page}/{total_pages}")
+        
+        # Handle navigation
+        if action == 'previous' and current_page > 0:
+            logger.info("Moving to previous page")
+            quiz_data['current_q'] = (current_page - 1) * 5
+            session['quiz'] = quiz_data
+            return redirect(url_for('quiz'))
+            
+        if action == 'complete' or (action == 'next' and current_page >= total_pages - 1):
+            logger.info("Completing quiz and moving to results")
             return redirect(url_for('results'))
-        else:
+            
+        if action == 'next':
+            logger.info("Moving to next page")
             quiz_data['current_q'] = (current_page + 1) * 5
             session['quiz'] = quiz_data
             return redirect(url_for('quiz'))
+        
+        # Default: stay on current page
+        logger.warning(f"Unexpected action: {action}")
+        return redirect(url_for('quiz'))
+        
     except Exception as e:
         logger.error(f"Error submitting answer: {str(e)}")
         flash('An error occurred. Please try again.', 'error')
@@ -284,17 +328,41 @@ def results():
     
     try:
         quiz_data = session['quiz']
-        correct = sum(1 for ans, q in zip(quiz_data['answers'], quiz_data['questions']) 
-                     if ans and q and ans.strip() == q["answer"].strip())
+        correct = sum(1 for ans, q in zip(quiz_data.get('answers', []), quiz_data.get('questions', [])) 
+                     if ans and q and ans.strip() == q.get("answer", "").strip())
         
-        total_time = time.time() - quiz_data['start_time']
-        proficiency = central_agent.assess_proficiency(
-            correct, 
-            len(quiz_data['questions']), 
-            total_time
-        )
+        # Ensure values are valid for template calculations
+        correct = max(0, correct)  # Prevent negative values
+        total = len(quiz_data.get('questions', []))
+        if total == 0:
+            flash('Quiz data is invalid', 'error')
+            return redirect(url_for('home'))
         
-        session['proficiency'] = proficiency
+        try:
+            total_time = time.time() - float(quiz_data.get('start_time', 0))
+            total_time = max(0, total_time)  # Ensure non-negative
+        except (TypeError, ValueError):
+            total_time = 0
+            logger.error("Invalid start_time in quiz data")
+
+        total_questions = len(quiz_data.get('questions', []))
+        if total_questions > 0:
+            proficiency = central_agent.assess_proficiency(
+                correct,
+                total_questions,
+                total_time
+            )
+        else:
+            proficiency = "beginner"
+            logger.warning("No questions found in quiz data")
+        
+        # Update session with quiz results
+        quiz_data['proficiency'] = proficiency
+        quiz_data['correct'] = correct
+        quiz_data['total_time'] = int(total_time)
+        session['quiz'] = quiz_data
+        session.modified = True
+        
         return render_template(
             'results.html',
             correct=correct,
@@ -309,21 +377,34 @@ def results():
 
 @app.route('/study_plan')
 def study_plan():
-    if 'quiz' not in session:
-        return redirect(url_for('home'))
-    
     try:
+        logger.info("Study plan route accessed")
+        
+        if 'quiz' not in session:
+            logger.warning("No quiz data in session")
+            flash('Please start a quiz first', 'warning')
+            return redirect(url_for('home'))
+        
         quiz_data = session['quiz']
+        logger.info(f"Quiz data keys in session: {quiz_data.keys()}")
+        
+        # Check if quiz is completed
+        if not quiz_data.get('proficiency') or not quiz_data.get('correct'):
+            logger.warning("Quiz not completed or results not available")
+            flash('Please complete the quiz first', 'warning')
+            return redirect(url_for('results'))
+            
         subject = quiz_data['subject']
         agent = central_agent.math_agent if subject == "Math" else central_agent.science_agent
         
+        logger.info(f"Generating study plan for topic: {quiz_data['topic']}, level: {quiz_data['level']}, proficiency: {quiz_data['proficiency']}")
+        
         study_plan = agent.generate_content(f"""
-            Create a study plan for {quiz_data['topic']} ({session.get('proficiency', 'intermediate')} level) 
-            for Level {quiz_data['Level']} students. Format the response using this HTML structure:
+            Create a study plan for {quiz_data['topic']} ({quiz_data['proficiency']} level) 
+            for Level {quiz_data['level']} students. Format the response using this HTML structure:
 
             <div class="topic-section">
                 <div class="topic-title">Topic Name (Duration)</div>
-                
                 <div class="learning-objectives">
                     <strong>Learning Goals:</strong>
                     <ul class="study-list">
@@ -331,60 +412,48 @@ def study_plan():
                         <li>Goal 2</li>
                     </ul>
                 </div>
-                
                 <div class="subtopic-title">Subtopic 1</div>
                 <ul class="study-list">
                     <li>Key point 1</li>
                     <li>Key point 2</li>
                 </ul>
-                
-                <div class="practice-exercises">
-                    <strong>Practice Activities:</strong>
-                    <ul class="study-list">
-                        <li>Exercise 1</li>
-                        <li>Exercise 2</li>
-                    </ul>
-                </div>
-                
-                <div class="milestone">
-                    <strong>Progress Check:</strong>
-                    What you should know by now...
-                </div>
             </div>
-
-            Create 3-4 topic sections, with clear progression from basic to advanced concepts.
         """)
         
         guide = agent.generate_content(f"""
-            Create a detailed guide for {quiz_data['topic']} in {subject} 
-            for Level {quiz_data['Level']} students. Format the response using this HTML structure:
+            Create a detailed guide for {quiz_data['topic']} in {subject}. 
+            Focus on {quiz_data['proficiency']} level concepts. Format as HTML:
 
-            <div class="topic-section">
-                <div class="topic-title">Concept Overview</div>
-                
-                <div class="key-concept">
-                    <strong>Key Points:</strong>
-                    <ul class="study-list">
-                        <li>Main point 1</li>
-                        <li>Main point 2</li>
-                    </ul>
-                </div>
-
-                <div class="subtopic-title">Detailed Explanation</div>
-                <p>Explanation text goes here...</p>
-                
-                <div class="example-box">
-                    <strong>Example:</strong>
-                    <p>Step 1: ...</p>
-                    <p>Step 2: ...</p>
+            <div class="guide-section">
+                <h3>Key Concepts</h3>
+                <ul>
+                    <li>Concept 1: explanation...</li>
+                    <li>Concept 2: explanation...</li>
+                </ul>
+                <h3>Examples</h3>
+                <div class="example">
+                    <p>Problem: ...</p>
+                    <p>Solution: ...</p>
                 </div>
             </div>
-
-            Include multiple sections covering core concepts, common mistakes to avoid, 
-            and solved examples with clear explanations.
         """)
         
-        return render_template('study_plan.html', study_plan=study_plan, guide=guide)
+        # Pass additional context data to template
+        context = {
+            'study_plan': study_plan,
+            'guide': guide,
+            'quiz_data': {
+                'topic': quiz_data['topic'],
+                'level': quiz_data['level'],
+                'proficiency': quiz_data['proficiency'],
+                'correct': quiz_data['correct'],
+                'total': len(quiz_data['questions']),
+                'time_taken': quiz_data['total_time']
+            }
+        }
+        
+        logger.info("Successfully generated study plan and guide")
+        return render_template('study_plan.html', **context)
     except Exception as e:
         logger.error(f"Error generating study plan: {str(e)}")
         flash('An error occurred. Please try again.', 'error')

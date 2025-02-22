@@ -31,6 +31,7 @@
                                                            name="answers[{{ question_num }}]" 
                                                            value="{{ option }}" 
                                                            id="q{{ question_num }}_{{ loop.index }}"
+                                                           {% if session.quiz.answers|length > question_num and session.quiz.answers[question_num] == option %}checked{% endif %}
                                                            required>
                                                     <label class="form-check-label" for="q{{ question_num }}_{{ loop.index }}">
                                                         {{ option }}
@@ -49,9 +50,9 @@
             <div class="d-flex justify-content-between align-items-center mt-4">
                 <div>
                     {% if current_page > 0 %}
-                        <a href="{{ url_for('quiz', page=current_page-1) }}" class="btn btn-secondary">
+                        <button type="submit" name="action" value="previous" class="btn btn-secondary">
                             ⬅️ Previous Page
-                        </a>
+                        </button>
                     {% endif %}
                 </div>
 
@@ -61,11 +62,11 @@
 
                 <div>
                     {% if current_page < total_pages - 1 %}
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" name="action" value="next" class="btn btn-primary">
                             Save & Continue ➡️
                         </button>
                     {% else %}
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" name="action" value="complete" class="btn btn-success">
                             Complete Quiz 🎉
                         </button>
                     {% endif %}

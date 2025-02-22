@@ -83,98 +83,90 @@ ul.study-list li {
     <div class="col-md-10">
         <h2 class="text-center mb-4">Your Personalized Study Plan</h2>
 
-        <ul class="nav nav-pills mb-4 justify-content-center" id="studyTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="plan-tab" data-bs-toggle="pill" 
-                        data-bs-target="#plan" type="button" role="tab">
-                    📋 Study Plan
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="guide-tab" data-bs-toggle="pill" 
-                        data-bs-target="#guide" type="button" role="tab">
-                    📖 Detailed Guide
-                </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="progress-tab" data-bs-toggle="pill" 
-                        data-bs-target="#progress" type="button" role="tab">
-                    📈 Progress
-                </button>
-            </li>
-        </ul>
+        {% if quiz_data %}
+            <ul class="nav nav-pills mb-4 justify-content-center" id="studyTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="plan-tab" data-bs-toggle="pill" 
+                            data-bs-target="#plan" type="button" role="tab">
+                        📋 Study Plan
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="guide-tab" data-bs-toggle="pill" 
+                            data-bs-target="#guide" type="button" role="tab">
+                        📖 Detailed Guide
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="progress-tab" data-bs-toggle="pill" 
+                            data-bs-target="#progress" type="button" role="tab">
+                        📈 Progress
+                    </button>
+                </li>
+            </ul>
 
-        <div class="tab-content" id="studyTabContent">
-            <!-- Study Plan Tab -->
-            <div class="tab-pane fade show active" id="plan" role="tabpanel">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title mb-4">Learning Path</h3>
-                        <div class="study-plan-content">
-                            {{ study_plan | safe }}
+            <div class="tab-content" id="studyTabContent">
+                <!-- Study Plan Tab -->
+                <div class="tab-pane fade show active" id="plan" role="tabpanel">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="alert alert-info mb-4">
+                                <h4 class="alert-heading">Learning Status</h4>
+                                <p class="mb-1"><strong>Topic:</strong> {{ quiz_data.topic }}</p>
+                                <p class="mb-1"><strong>Level:</strong> {{ quiz_data.level }}</p>
+                                <p class="mb-1"><strong>Score:</strong> {{ quiz_data.correct }}/{{ quiz_data.total }}</p>
+                                <p class="mb-0"><strong>Current Proficiency:</strong> {{ quiz_data.proficiency|title }}</p>
+                            </div>
+
+                            <h3 class="card-title mb-4">Personalized Learning Path</h3>
+                            <div class="study-plan-content">
+                                {{ study_plan | safe }}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Detailed Guide Tab -->
-            <div class="tab-pane fade" id="guide" role="tabpanel">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title mb-4">Step-by-Step Guide</h3>
-                        <div class="guide-content">
-                            {{ guide | safe }}
+                <!-- Detailed Guide Tab -->
+                <div class="tab-pane fade" id="guide" role="tabpanel">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title mb-4">Step-by-Step Guide</h3>
+                            <div class="guide-content">
+                                {{ guide | safe }}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Progress Tab -->
-            <div class="tab-pane fade" id="progress" role="tabpanel">
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title mb-4">Learning Progress</h3>
-                        
-                        <div class="progress mb-4" style="height: 25px;">
-                            <div class="progress-bar" role="progressbar" style="width: 30%">
-                                30% Complete
-                            </div>
-                        </div>
-
-                        <div class="row mb-4">
-                            <div class="col-md-4">
-                                <div class="card bg-light">
-                                    <div class="card-body text-center">
-                                        <h4 class="h5">Modules Completed</h4>
-                                        <p class="display-6">2/7</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card bg-light">
-                                    <div class="card-body text-center">
-                                        <h4 class="h5">Practice Questions</h4>
-                                        <p class="display-6">15</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card bg-light">
-                                    <div class="card-body text-center">
-                                        <h4 class="h5">Time Invested</h4>
-                                        <p class="display-6">45m</p>
-                                    </div>
-                                </div>
+                <!-- Progress Tab -->
+                <div class="tab-pane fade" id="progress" role="tabpanel">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title mb-4">Quiz Performance</h3>
+                            <div class="alert alert-info">
+                                <h4 class="alert-heading">Results Summary</h4>
+                                <p class="mb-1">Score: {{ quiz_data.correct }}/{{ quiz_data.total }}</p>
+                                <p class="mb-1">Time: {{ quiz_data.time_taken }}s</p>
+                                <p class="mb-1">Proficiency Level: {{ quiz_data.proficiency|title }}</p>
+                                <p class="mb-0">Average Time per Question: {{ (quiz_data.time_taken / quiz_data.total)|round }}s</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% else %}
+            <div class="alert alert-warning">
+                <h4 class="alert-heading">Session Data Not Found</h4>
+                <p>Please complete the quiz first to view your personalized study plan.</p>
+            </div>
+        {% endif %}
 
         <div class="text-center mt-4">
-            <a href="{{ url_for('final_assessment') }}" class="btn btn-success btn-lg">
-                Take Final Assessment 🚀
+            <a href="{{ url_for('home') }}" class="btn btn-primary btn-lg">
+                Try Another Topic 🔄
+            </a>
+            <a href="{{ url_for('results') }}" class="btn btn-outline-primary btn-lg ms-2">
+                Back to Results ↩️
             </a>
         </div>
     </div>

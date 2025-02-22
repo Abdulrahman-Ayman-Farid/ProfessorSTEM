@@ -13,13 +13,25 @@
                             <div class="card-body">
                                 <h3 class="h5">Score</h3>
                                 <p class="display-6">{{ correct }}/{{ total }}</p>
-                                <div class="progress">
-                                <div class="progress-bar" role="progressbar" id="score-progress">
+                                {% set percentage = (total > 0) and ((correct|float / total|float) * 100)|round|int or 0 %}
+                                {% set progress_color = 'bg-danger' if percentage < 40 else ('bg-warning' if percentage < 70 else 'bg-success') %}
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar {{ progress_color }}" role="progressbar" 
+                                         style="width: {{ percentage }}%" 
+                                         aria-valuenow="{{ percentage }}" 
+                                         aria-valuemin="0" 
+                                         aria-valuemax="100">
+                                    </div>
                                 </div>
-                                <script>
-                                    document.getElementById('score-progress').style.width = '{{ (correct / total * 100)|round }}%';
-                                </script>
-                                </div>
+                                <p class="text-muted mt-2">
+                                    {% if percentage >= 70 %}
+                                        <span class="text-success">{{ percentage }}% 🎉</span>
+                                    {% elif percentage >= 40 %}
+                                        <span class="text-warning">{{ percentage }}% 💪</span>
+                                    {% else %}
+                                        <span class="text-danger">{{ percentage }}% 📚</span>
+                                    {% endif %}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -28,8 +40,25 @@
                         <div class="card bg-light mb-3">
                             <div class="card-body">
                                 <h3 class="h5">Time Taken</h3>
-                                <p class="display-6">{{ time_taken }}s</p>
-                                <p class="text-muted">Average: {{ (time_taken / total)|round }}s per question</p>
+                                {% set minutes = (time_taken // 60)|int %}
+                                {% set seconds = (time_taken % 60)|int %}
+                                <p class="display-6">
+                                    {% if minutes > 0 %}
+                                        {{ minutes }}m {{ seconds }}s
+                                    {% else %}
+                                        {{ seconds }}s
+                                    {% endif %}
+                                </p>
+                                <p class="text-muted">
+                                    {% set avg_time = (time_taken / total)|round|int %}
+                                    {% if avg_time < 30 %}
+                                        <span class="text-success">{{ avg_time }}s per question 🚀</span>
+                                    {% elif avg_time < 60 %}
+                                        <span class="text-warning">{{ avg_time }}s per question ⌛</span>
+                                    {% else %}
+                                        <span class="text-danger">{{ avg_time }}s per question ⏰</span>
+                                    {% endif %}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -54,9 +83,14 @@
             </div>
 
             <div class="mt-4">
-                <a href="{{ url_for('study_plan') }}" class="btn btn-primary btn-lg">
-                    View Study Plan 📚
-                </a>
+                <div class="d-grid gap-3 mx-auto" style="max-width: 400px;">
+                    <a href="{{ url_for('study_plan') }}" class="btn btn-success btn-lg shadow-sm">
+                        <i class="fas fa-book-open me-2"></i> View Your Study Plan 📚
+                    </a>
+                    <a href="{{ url_for('home') }}" class="btn btn-outline-primary">
+                        Try Another Topic 🔄
+                    </a>
+                </div>
             </div>
         </div>
     </div>
