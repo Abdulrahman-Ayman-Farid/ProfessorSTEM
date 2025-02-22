@@ -93,7 +93,7 @@ class CentralAgent:
             raise ValueError("Invalid topic, level, or subject format")
             
         prompt = f"""
-        Generate a 15-question MCQ Exam on {topic} for {level} level students in {subject}.
+        Generate a 25-question MCQ Exam on {topic} for {level} level students in {subject}.
         Format each question exactly like:
         [Question X] What is the question text? | Option 1 | Option 2 | Option 3 | Option 4 | Correct Answer
 
