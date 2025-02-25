@@ -1,32 +1,859 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Student Level Predictor</title>
-</head>
-<body class="bg-light">
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Student Level Predictor</h1>
-        <form action="/predict/" method="post" class="p-4 bg-white rounded shadow">
-            <div class="mb-3">
-                <label for="age" class="form-label">Age</label>
-                <input type="number" class="form-control" id="age" name="age" required>
+    <title>Home | Professor Stem Title</title>
+  <link rel="icon" href="/static/images/favicon.ico"><link href="/static/css/style.css" rel="stylesheet"></head>
+  <body x-data="{ page: 'home', 'loaded': true, 'darkMode': true, 'stickyMenu': false, 'navigationOpen': false, 'scrollTop': false }" 
+  x-init="
+     darkMode = JSON.parse(localStorage.getItem('darkMode')) !== null ? JSON.parse(localStorage.getItem('darkMode')) : true;
+     $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))" 
+  :class="{'a tf': darkMode === true}">
+<!-- ===== Preloader Start ===== -->
+    <div x-show="loaded" x-init="window.addEventListener('DOMContentLoaded', () => {setTimeout(() => loaded = false, 500)})" class="f l i z mc qb ee ge id uf">
+  <div class="sc xb xe xd if mf qf sf"></div>
+</div>
+    <!-- ===== Preloader End ===== -->
+
+    <!-- ===== Bg Lines Start ===== -->
+    <div class="f i l -ud-z-10 qb hc rc ee ie">
+  <span class="hd hc dg wl qb ud"></span>
+  <span class="hd hc dg wl qb vd"></span>
+  <span class="hd hc dg wl qb wd"></span>
+</div>
+
+    <!-- ===== Bg Lines End ===== -->
+
+    <!-- ===== Header Start ===== -->
+
+    {% include 'header.html' %}
+
+    <!-- ===== Header End ===== -->
+
+    <main>
+      <!-- ===== Hero Start ===== -->
+      <section id="#home" class="th rn dr uh er ve">
+        <div class="ba md _g nn 2xl:ud-px-0">
+          <div class="qb ro to gq">
+            <div class="animate_left vm/2">
+              <h4 class="ej dm oi bj ra">🔥 Professor Stem is one of the best option for you.</h4>
+              <h1 class="ej dm ri jr cj ga">
+                Complete Tailwind CSS
+                <span class="pb h ik jk kk pk nk sk im before:-ud-z-1">Template</span>
+                for SaaS Website
+              </h1>
+              <p>Solid is a complete Tailwind CSS template crafted specially for SaaS, Software Mobile App and Web App Sites.</p>
+
+              <div class="ma">
+                <form action="https://formbold.com/s/unique_form_id" method="POST">
+                  <div class="qb de qe">
+                    <input type="text" placeholder="Enter your email address" class="tl hf nf pl pj gm xe hl fl pm bh xg">
+                    <button class="qb tf xk rl fj xe hk ek dh bh mm">Get Started</button>
+                  </div>
+                </form>
+
+                <p class="ej dm ta">Try for free no credit card required.</p>
+              </div>
             </div>
-            <div class="mb-3">
-                <label for="school_level" class="form-label">School Level</label>
-                <select class="form-control" id="school_level" name="school_level" required>
-                    <option value="primary">Primary</option>
-                    <option value="secondary">Secondary</option>
-                </select>
+            <div class="animate_right vm/2 ub co">
+              <div class="h 2xl:-ud-mr-7.5">
+                <img src="/static/images/shape-01.png" alt="shape" class="g -ud-left-11.5 i">
+                <img src="/static/images/shape-02.svg" alt="shape" class="g j k">
+                <img src="/static/images/shape-03.svg" alt="shape" class="g -ud-right-6.5 k">
+                <div>
+                  <img class="nl qj" src="/static/images/hero-light.png" alt="Hero">
+                  <img class="ub ml qj" src="/static/images/hero-dark.png" alt="Hero">
+                </div>
+              </div>
             </div>
-            <div class="mb-3">
-                <label for="science_grade" class="form-label">Science Grade</label>
-                <input type="number" class="form-control" id="science_grade" name="science_grade" required>
+          </div>
+        </div>
+      </section>
+      <!-- ===== Hero End ===== -->
+
+      <!-- ===== Clients Start ===== -->
+      <section class="vf tl hf jf rf ql fh">
+        <div class="ba md _g nn 2xl:ud-px-0">
+          <div class="tb ae cn le uo iq ge ee">
+            <a href="#" class="animate_top ob">
+              <img class="ij yj ek dl nl" src="/static/images/brand-light-01.svg" alt="Clients">
+              <img class="ub jj yj ek dl ml" src="/static/images/brand-dark-01.svg" alt="Clients">
+            </a>
+            <a href="#" class="animate_top ob">
+              <img class="ij yj ek dl nl" src="/static/images/brand-light-02.svg" alt="Clients">
+              <img class="ub jj yj ek dl ml" src="/static/images/brand-dark-02.svg" alt="Clients">
+            </a>
+            <a href="#" class="ob animate_top">
+              <img class="ij yj ek dl nl" src="/static/images/brand-light-03.svg" alt="Clients">
+              <img class="ub jj yj ek dl ml" src="/static/images/brand-dark-03.svg" alt="Clients">
+            </a>
+            <a href="#" class="ob animate_top">
+              <img class="ij yj ek dl nl" src="/static/images/brand-light-04.svg" alt="Clients">
+              <img class="ub jj yj ek dl ml" src="/static/images/brand-dark-04.svg" alt="Clients">
+            </a>
+            <a href="#" class="ob animate_top">
+              <img class="ij yj ek dl nl" src="/static/images/brand-light-05.svg" alt="Clients">
+              <img class="ub jj yj ek dl ml" src="/static/images/brand-dark-05.svg" alt="Clients">
+            </a>
+            <a href="#" class="ob animate_top">
+              <img class="ij yj ek dl nl" src="/static/images/brand-light-06.svg" alt="Clients">
+              <img class="ub jj yj ek dl ml" src="/static/images/brand-dark-06.svg" alt="Clients">
+            </a>
+          </div>
+        </div>
+      </section>
+      <!-- ===== Clients End ===== -->
+
+      <!-- ===== Features Start ===== -->
+      <section id="features" class="zg ep oq">
+        <div class="ba nd _g nn pq">
+          <!-- Section Title Start -->
+          <div class="animate_top mi ba" x-data="{ sectionTitle: `SAAS FEATURES`, sectionSubtitle: `Our Software's Core Features`, sectionTitlePara: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor eros. Donec vitae tortor lacus. Phasellus aliquam ante in maximus.`}">
+            <div class="eg sl ol pl pb xe oh hh sa">
+  <h4 x-text="sectionTitle" class="bj yi ej dm"></h4>
+</div>
+<h2 x-text="sectionSubtitle" class="cj ri nr ej dm ym/5 zp/2 ba sa"></h2>
+<p class="ba ym/5 mo/5 aq" x-text="sectionTitlePara"></p>
+
+          </div>
+          <!-- Section Title End -->
+
+          <div class="tb _d bn oo le eq ua xn vp">
+            <!-- Features item Start -->
+            <div class="animate_top hf of rj ye ug lq yj el km pl sl">
+              <div class="qb ee ge ze wf sc xb">
+                <img src="/static/images/icon-01.svg" alt="Icon">
+              </div>
+              <h3 class="aj qi kr ej dm ia ga">Crafted for SaaS</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor.</p>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Predict</button>
-        </form>
-    </div>
-</body>
-</html>
+            <!-- Features item End -->
+
+            <!-- Features item Start -->
+            <div class="animate_top hf of rj ye ug lq yj el km pl sl">
+              <div class="qb ee ge ze wf sc xb">
+                <img src="/static/images/icon-02.svg" alt="Icon">
+              </div>
+              <h3 class="aj qi kr ej dm ia ga">High-quality Design</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor.</p>
+            </div>
+            <!-- Features item End -->
+
+            <!-- Features item Start -->
+            <div class="animate_top hf of rj ye ug lq yj el km pl sl">
+              <div class="qb ee ge ze wf sc xb">
+                <img src="/static/images/icon-03.svg" alt="Icon">
+              </div>
+              <h3 class="aj qi kr ej dm ia ga">All Essential Sections</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor.</p>
+            </div>
+            <!-- Features item End -->
+
+            <!-- Features item Start -->
+            <div class="animate_top hf of rj ye ug lq yj el km pl sl">
+              <div class="qb ee ge ze wf sc xb">
+                <img src="/static/images/icon-04.svg" alt="Icon">
+              </div>
+              <h3 class="aj qi kr ej dm ia ga">Speed Optimized</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor.</p>
+            </div>
+            <!-- Features item End -->
+
+            <!-- Features item Start -->
+            <div class="animate_top hf of rj ye ug lq yj el km pl sl">
+              <div class="qb ee ge ze wf sc xb">
+                <img src="/static/images/icon-05.svg" alt="Icon">
+              </div>
+              <h3 class="aj qi kr ej dm ia ga">Fully Customizable</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor.</p>
+            </div>
+            <!-- Features item End -->
+
+            <!-- Features item Start -->
+            <div class="animate_top hf of rj ye ug lq yj el km pl sl">
+              <div class="qb ee ge ze wf sc xb">
+                <img src="/static/images/icon-06.svg" alt="Icon">
+              </div>
+              <h3 class="aj qi kr ej dm ia ga">Regular Updates</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor.</p>
+            </div>
+            <!-- Features item End -->
+          </div>
+        </div>
+      </section>
+      <!-- ===== Features End ===== -->
+
+      <!-- ===== About Start ===== -->
+      <section class="uh pp cr ve">
+        <div class="ba od _g nn pq">
+          <div class="qb ee te wo">
+            <div class="animate_left ub sm vm/2">
+              <img src="/static/images/about-light-01.png" alt="About" class="nl">
+              <img src="/static/images/about-dark-01.png" alt="About" class="ub ml">
+            </div>
+            <div class="animate_right vm/2">
+              <h4 class="ej dm bj dj">
+                <a href="#" class="xf fj si sb xe gh hh wa sa">New</a> start tracking visitors
+              </h4>
+              <h2 class="h cj ej dm ri jr xa">
+                Know More About Our
+                <span class="pb h ik jk kk pk nk sk im before:-ud-z-1">Product.</span>
+              </h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies lacus non fermentum ultrices. Fusce consectetur le.</p>
+
+              <div class="ia qb ee qe">
+                <div class="tc yb af hf nf pl sl qb ee ge">
+                  <p class="ej dm aj ti">01</p>
+                </div>
+                <div class="uc/4">
+                  <h5 class="ej dm ti ya">Lorem ipsum dolor.</h5>
+                  <p>Ut ultricies lacus non fermentum ultrices.</p>
+                </div>
+              </div>
+              <div class="ia qb ee qe">
+                <div class="tc yb af hf nf pl sl qb ee ge">
+                  <p class="ej dm aj ti">02</p>
+                </div>
+                <div class="uc/4">
+                  <h5 class="ej dm ti ya">Fusce consectetur le.</h5>
+                  <p>consectetur adipiscing elit fermentum ultricies.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ===== About End ===== -->
+
+      <!-- ===== About Two Start ===== -->
+      <section>
+        <div class="ba od _g nn 2xl:ud-px-0 ve">
+          <div class="qb ee te wo">
+            <div class="animate_left vm/2">
+              <h4 class="ej dm bj dj">grow your business faster</h4>
+              <h2 class="h cj ej dm ri jr xa">
+                Track Your Audience
+                <span class="pb h ik jk kk pk nk tk im before:-ud-z-1">Activities</span>
+              </h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies lacus non fermentum ultrices. Fusce consectetur le.</p>
+
+              <a href="#" class="qb ee je ej dm ia">
+                Know More
+                <img class="nl" src="/static/images/icon-arrow-light.svg" alt="Arrow">
+                <img class="ub ml" src="/static/images/icon-arrow-dark.svg" alt="Arrow">
+              </a>
+            </div>
+            <div class="animate_right ub sm vm/2">
+              <img src="/static/images/about-light-02.png" alt="About" class="nl">
+              <img src="/static/images/about-dark-02.png" alt="About" class="ub ml">
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ===== About Two End ===== -->
+
+      <!-- ===== Features Tab Start ===== -->
+      <section class="vh uh qp h" x-data="{ featuresTab: 'tabOne' }">
+        <div class="ba md _g nn 2xl:ud-px-0">
+          <div class="g i -ud-z-1">
+            <img class="nl" src="/static/images/shape-dotted-light.svg" alt="Dotted Shape">
+            <img class="ub ml" src="/static/images/shape-dotted-dark.svg" alt="Dotted Shape">
+          </div>
+
+          <!-- Tab Menues Start -->
+          <div class="animate_top hf nf pl sl sj hm uf bf qb de en fn ge yo eq _a wp">
+            <div class="h yd rc wm kf wk jn nf pl qb ee pe ch qq xg rq" :class="{ 'active pk ok uk ik mk kk qk rk': featuresTab === 'tabOne' }" @click.prevent="featuresTab = 'tabOne'">
+              <div class="vc zb af hf nf pl sl qb ee ge">
+                <p class="ej dm bj ui">01</p>
+              </div>
+              <div class="io xm/5">
+                <h5 class="ej dm vi lr bj">Clean User Interface</h5>
+              </div>
+            </div>
+            <div class="h yd rc wm kf wk jn nf pl qb ee pe ch qq xg rq" :class="{ 'active pk ok uk ik mk kk qk rk': featuresTab === 'tabTwo' }" @click.prevent="featuresTab = 'tabTwo'">
+              <div class="vc zb af hf nf pl sl qb ee ge">
+                <p class="ej dm bj ui">02</p>
+              </div>
+              <div class="io xm/5">
+                <h5 class="ej dm vi lr bj">Cloud Data Save Options</h5>
+              </div>
+            </div>
+            <div class="h yd rc wm kf wk jn nf pl qb ee pe ch qq xg rq" :class="{ 'active pk ok uk ik mk kk qk rk': featuresTab === 'tabThree' }" @click.prevent="featuresTab = 'tabThree'">
+              <div class="vc zb af hf nf pl sl qb ee ge">
+                <p class="ej dm bj ui">03</p>
+              </div>
+              <div class="io xm/5">
+                <h5 class="ej dm vi lr bj">Management And Collaboration</h5>
+              </div>
+            </div>
+          </div>
+          <!-- Tab Menues End -->
+
+          <!-- Tab Content Start -->
+          <div class="animate_top ba pd">
+            <div x-show="featuresTab === 'tabOne'">
+              <div class="qb ee te _o">
+                <div class="vm/2">
+                  <h2 class="ej dm ri mr cj fa">Solid Has Neat & Clean User Interface.</h2>
+                  <p class="ga">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies lacus non fermentum ultrices. Fusce consectetur le.</p>
+                  <p class="xc/12">Nam id eleifend dui, id iaculis purus. Etiam lobortis neque nec finibus sagittis. Nulla ligula nunc egestas ut.</p>
+                </div>
+                <div class="ub sm vm/2">
+                  <img src="/static/images/features-light-01.png" alt="Features" class="nl">
+                  <img src="/static/images/features-dark-01.png" alt="Features" class="ub ml">
+                </div>
+              </div>
+            </div>
+
+            <div x-show="featuresTab === 'tabTwo'">
+              <div class="qb ee te _o">
+                <div class="vm/2">
+                  <h2 class="ej dm ri mr cj fa">Solid Has Cloud Data Save Options.</h2>
+                  <p class="ga">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies lacus non fermentum ultrices. Fusce consectetur le.</p>
+                  <p class="xc/12">Nam id eleifend dui, id iaculis purus. Etiam lobortis neque nec finibus sagittis. Nulla ligula nunc egestas ut.</p>
+                </div>
+                <div class="ub sm vm/2">
+                  <img src="/static/images/features-light-01.png" alt="Features" class="nl">
+                  <img src="/static/images/features-dark-01.png" alt="Features" class="ub ml">
+                </div>
+              </div>
+            </div>
+
+            <div x-show="featuresTab === 'tabThree'">
+              <div class="qb ee te _o">
+                <div class="vm/2">
+                  <h2 class="ej dm ri mr cj fa">Solid Has Management And Collaboration.</h2>
+                  <p class="ga">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ultricies lacus non fermentum ultrices. Fusce consectetur le.</p>
+                  <p class="xc/12">Nam id eleifend dui, id iaculis purus. Etiam lobortis neque nec finibus sagittis. Nulla ligula nunc egestas ut.</p>
+                </div>
+                <div class="ub sm vm/2">
+                  <img src="/static/images/features-light-01.png" alt="Features" class="nl">
+                  <img src="/static/images/features-dark-01.png" alt="Features" class="ub ml">
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Tab Content End -->
+        </div>
+      </section>
+      <!-- ===== Features Tab End ===== -->
+
+      <!-- ===== Funfact Start ===== -->
+      <section class="zg fp _g nn 2xl:ud-px-0">
+        <div class="ba md ih tq h w ye fg gg hg xl yl _l sl cm">
+          <img src="/static/images/shape-04.png" alt="Man" class="g -ud-top-25 -ud-left-15 wn -ud-z-1">
+          <img src="/static/images/shape-05.png" alt="Doodle" class="g k j -ud-z-1">
+          <img src="/static/images/shape-dotted-light-02.svg" alt="Dotted" class="g i l -ud-z-1 nl">
+          <img src="/static/images/shape-dotted-dark-02.svg" alt="Dotted" class="g i l -ud-z-1 ub ml">
+
+          <div class="animate_top ba mi ym/5 ho/3 zp/2 ab yn _g on">
+            <h2 class="cj ej dm ri nr sa">Trusted by Global Companies.</h2>
+            <p class="jo/12 ba">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor eros. Donec vitae tortor lacus. Phasellus aliquam ante in maximus.</p>
+          </div>
+
+          <div class="qb de ge te ap">
+            <div class="animate_top mi">
+              <h3 class="cj ej dm ri nr cb">500K</h3>
+              <p class="oi up">World Wide Clients</p>
+            </div>
+            <div class="animate_top mi">
+              <h3 class="cj ej dm ri nr cb">1M+</h3>
+              <p class="oi up">Downloads</p>
+            </div>
+            <div class="animate_top mi">
+              <h3 class="cj ej dm ri nr cb">865</h3>
+              <p class="oi up">Winning Award</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ===== Funfact End ===== -->
+
+      <!-- ===== Integrations Start ===== -->
+      <section>
+        <div class="ba md _g nn 2xl:ud-px-0">
+          <!-- Section Title Start -->
+          <div class="animate_top mi ba" x-data="{ sectionTitle: `INTEGRATIONS`, sectionSubtitle: `Remotely Maintain Your Data, From Anywhere, Anytime.`, sectionTitlePara: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor eros. Donec vitae tortor lacus. Phasellus aliquam ante in maximus.`}">
+            <div class="eg sl ol pl pb xe oh hh sa">
+  <h4 x-text="sectionTitle" class="bj yi ej dm"></h4>
+</div>
+<h2 x-text="sectionSubtitle" class="cj ri nr ej dm ym/5 zp/2 ba sa"></h2>
+<p class="ba ym/5 mo/5 aq" x-text="sectionTitlePara"></p>
+
+          </div>
+          <!-- Section Title End -->
+        </div>
+
+        <div class="ba pd _g nn pq h x ha vp">
+          <div class="g -ud-top-3/4 -ud-z-1">
+            <img src="/static/images/shape-dotted-light.svg" alt="Dotted" class="nl">
+            <img src="/static/images/shape-dotted-dark.svg" alt="Dotted" class="ub ml">
+          </div>
+          <div class="qb de ue ie">
+            <div class="animate_top yc/6">
+              <div class="pb bf tj uf rl wg">
+                <img src="/static/images/brand-07.svg" alt="Brand">
+              </div>
+            </div>
+
+            <div class="animate_top yc/6"></div>
+
+            <div class="animate_top yc/6">
+              <div class="pb bf tj uf rl wg">
+                <img src="/static/images/brand-08.svg" alt="Brand">
+              </div>
+            </div>
+
+            <div class="animate_top yc/6">
+              <div class="yf xe zc ac"></div>
+            </div>
+
+            <div class="animate_top yc/6">
+              <div class="pb bf tj uf rl wg">
+                <img src="/static/images/brand-09.png" alt="Brand">
+              </div>
+            </div>
+
+            <div class="animate_top yc/6"></div>
+
+            <div class="animate_top yc/6">
+              <div class="zf xe _c bc"></div>
+            </div>
+
+            <div class="animate_top yc/6">
+              <div class="pb bf tj uf rl wg">
+                <img src="/static/images/brand-10.svg" alt="Brand">
+              </div>
+            </div>
+
+            <div class="animate_top yc/6">
+              <div class="_f xe ad cc"></div>
+            </div>
+
+            <div class="animate_top yc/6">
+              <div class="pb bf tj uf rl wg">
+                <img src="/static/images/brand-11.svg" alt="Brand">
+              </div>
+            </div>
+
+            <div class="animate_top yc/6">
+              <div class="ag xe _c bc"></div>
+            </div>
+
+            <div class="animate_top yc/6">
+              <div class="pb bf tj uf rl wg">
+                <img src="/static/images/brand-12.svg" alt="Brand">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ===== Integrations End ===== -->
+
+      <!-- ===== CTA Start ===== -->
+      <section class="zg ep oq _g nn 2xl:ud-px-0 ve">
+        <div class="ba md dh pn vq kh wq ye fg gg hg xl yl _l sl cm">
+          <div class="qb de en fn gn te hn">
+            <div class="animate_left zm ko/2">
+              <h2 class="ej dm ri or cj sa xc/12">Join With Us Today & Incrud-ease Your Productivity</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor eros. Donec vitae tortor lacus. Phasellus aliquam ante in maximus.</p>
+            </div>
+            <div class="animate_right lo">
+              <div class="qb ee fe cq">
+                <img src="/static/images/shape-06.png" alt="Saly" class="ub yp">
+                <a href="/signup" class="sb ee je bj fj em tf ul xe yg xg _k mm">
+                  Sign up free
+                  <img src="/static/images/icon-arrow-dark.svg" alt="Arrow" class="nl">
+                  <img src="/static/images/icon-arrow-light.svg" alt="Arrow" class="ub ml">
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ===== CTA End ===== -->
+
+      <!-- ===== FAQ Start ===== -->
+      <section class="uh pp cr ve">
+        <div class="ba od _g nn pq h">
+          <div class="g -ud-bottom-7.5 -ud-z-1">
+            <img src="/static/images/shape-dotted-light.svg" alt="Dotted" class="nl">
+            <img src="/static/images/shape-dotted-light.svg" alt="Dotted" class="ub ml">
+          </div>
+          <div class="qb de en fn te gq">
+            <div class="animate_left _m/5 ko/2">
+              <h4 class="ej dm bj dj">OUR FAQS</h4>
+              <h2 class="h cj ej dm ri jr xa">
+                Frequently Asked
+                <span class="pb h ik jk kk pk nk tk im before:-ud-z-1">Questions</span>
+              </h2>
+
+              <a href="#" class="qb ee je ej dm eb">
+                Know More
+                <img class="nl" src="/static/images/icon-arrow-light.svg" alt="Arrow">
+                <img class="ub ml" src="/static/images/icon-arrow-dark.svg" alt="Arrow">
+              </a>
+            </div>
+
+            <div class="animate_right xm/5 ko/2">
+              <div class="uf sl ol pl mj ye" x-data="{selected:0}">
+                <div class="qb be kf nf pl">
+                  <h4 @click="selected !== 0 ? selected = 0 : selected = null" class="yd qb he ee bj ui ej dm mh hp xg ip">
+                    Lorem ipsum dolor sit amet, consectetur.
+                    <img src="/static/images/icon-plus-light.svg" alt="plus" class="nl" :class="selected == 0 ? 'ub' : 'ob'">
+                    <img src="/static/images/icon-minus-light.svg" alt="minus" class="nl" :class="selected == 0 ? 'ob' : 'ub'">
+                    <img src="/static/images/icon-plus-dark.svg" alt="plus" class="ub ml" :class="selected == 0 ? 'nl' : 'ml'">
+                    <img src="/static/images/icon-minus-dark.svg" alt="minus" class="ub ml" :class="selected == 0 ? 'ml' : 'nl'">
+                  </h4>
+                  <p x-show="selected == 0" class="mh hp xg ip lf nf pl">
+                    We provide digital experience services to startups and small businesses. We help our clients succeed by creating brand identities, digital experiences.
+                  </p>
+                </div>
+                <div class="qb be kf nf pl">
+                  <h4 @click="selected !== 1 ? selected = 1 : selected = null" class="yd qb he ee bj ui ej dm mh hp xg ip">
+                    Lorem ipsum dolor sit amet, consectetur.
+                    <img src="/static/images/icon-plus-light.svg" alt="plus" class="nl" :class="selected == 1 ? 'ub' : 'ob'">
+                    <img src="/static/images/icon-minus-light.svg" alt="minus" class="nl" :class="selected == 1 ? 'ob' : 'ub'">
+                    <img src="/static/images/icon-plus-dark.svg" alt="plus" class="ub ml" :class="selected == 1 ? 'nl' : 'ml'">
+                    <img src="/static/images/icon-minus-dark.svg" alt="minus" class="ub ml" :class="selected == 1 ? 'ml' : 'nl'">
+                  </h4>
+                  <p x-show="selected == 1" class="mh hp xg ip lf nf pl">
+                    We provide digital experience services to startups and small businesses. We help our clients succeed by creating brand identities, digital experiences.
+                  </p>
+                </div>
+                <div class="qb be">
+                  <h4 @click="selected !== 2 ? selected = 2 : selected = null" :class="{'yd qb he ee bj ui ej dm mh hp xg ip': true, 'ef': selected != 2}">
+                    Lorem ipsum dolor sit amet, consectetur.
+                    <img src="/static/images/icon-plus-light.svg" alt="plus" class="nl" :class="selected == 2 ? 'ub' : 'ob'">
+                    <img src="/static/images/icon-minus-light.svg" alt="minus" class="nl" :class="selected == 2 ? 'ob' : 'ub'">
+                    <img src="/static/images/icon-plus-dark.svg" alt="plus" class="ub ml" :class="selected == 2 ? 'nl' : 'ml'">
+                    <img src="/static/images/icon-minus-dark.svg" alt="minus" class="ub ml" :class="selected == 2 ? 'ml' : 'nl'">
+                  </h4>
+                  <p x-show="selected == 2" :class="{'mh hp xg ip lf nf pl': true, 'ef': selected == 2}">
+                    We provide digital experience services to startups and small businesses. We help our clients succeed by creating brand identities, digital experiences.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ===== FAQ End ===== -->
+
+      <!-- ===== Testimonials Start ===== -->
+      <section>
+        <div class="ba nd _g nn pq">
+          <!-- Section Title Start -->
+          <div class="animate_top mi ba" x-data="{ sectionTitle: `TESTIMONIALS`, sectionSubtitle: `Client’s Testimonials`, sectionTitlePara: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor eros. Donec vitae tortor lacus. Phasellus aliquam ante in maximus.`}">
+            <div class="eg sl ol pl pb xe oh hh sa">
+  <h4 x-text="sectionTitle" class="bj yi ej dm"></h4>
+</div>
+<h2 x-text="sectionSubtitle" class="cj ri nr ej dm ym/5 zp/2 ba sa"></h2>
+<p class="ba ym/5 mo/5 aq" x-text="sectionTitlePara"></p>
+
+          </div>
+          <!-- Section Title End -->
+        </div>
+
+        <div class="animate_top ba od _g nn pq ha vp">
+          <!-- Slider main container -->
+          <div class="swiper testimonial-01 xh">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+              <!-- Slides -->
+              <div class="swiper-slide">
+                <div class="uf ye uj gm sl ol pl tg zh">
+                  <div class="qb he kf nf pl ai ea">
+                    <div>
+                      <h4 class="ej dm ui fb">Devid Smith</h4>
+                      <p>Founter @democompany</p>
+                    </div>
+                    <img class="" src="/static/images/user-01.png" alt="User">
+                  </div>
+
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris hendrerit, ligula sit amet cursus tincidunt, lorem sem elementum nisi, convallis fringilla ante nibh non urna.</p>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="uf ye uj gm sl ol pl tg zh">
+                  <div class="qb he kf nf pl ai ea">
+                    <div>
+                      <h4 class="ej dm ui fb">Jhon Abraham</h4>
+                      <p>Founter @democompany</p>
+                    </div>
+                    <img class="" src="/static/images/user-02.png" alt="User">
+                  </div>
+
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris hendrerit, ligula sit amet cursus tincidunt, lorem sem elementum nisi, convallis fringilla ante nibh non urna.</p>
+                </div>
+              </div>
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </section>
+      <!-- ===== Testimonials End ===== -->
+
+      <!-- ===== Pricing Table Start ===== -->
+      <section class="bi sp fr uh pp cr">
+        <div class="ba nd _g nn pq">
+          <!-- Section Title Start -->
+          <div class="animate_top mi ba" x-data="{ sectionTitle: `PRICING PLANS`, sectionSubtitle: `Simple Pricing`, sectionTitlePara: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor eros. Donec vitae tortor lacus. Phasellus aliquam ante in maximus.`}">
+            <div class="eg sl ol pl pb xe oh hh sa">
+  <h4 x-text="sectionTitle" class="bj yi ej dm"></h4>
+</div>
+<h2 x-text="sectionSubtitle" class="cj ri nr ej dm ym/5 zp/2 ba sa"></h2>
+<p class="ba ym/5 mo/5 aq" x-text="sectionTitlePara"></p>
+
+          </div>
+          <!-- Section Title End -->
+        </div>
+
+        <div class="ba qd _g nn pq h ha vp">
+          <div class="g -ud-bottom-15 -ud-z-1">
+            <img src="/static/images/shape-dotted-light.svg" alt="Dotted" class="nl">
+          </div>
+          <div class="qb de qo ge le eq">
+            <!-- Pricing Item -->
+            <div class="animate_top an ko/3 b h uf sl ye vj gm hf nf pl ug lq">
+              <h3 class="ej dm cj ri nr ea">
+                $10 <span class="wi gj fm">/month</span>
+              </h3>
+              <h4 class="ej dm bj xi cb">Small Pack</h4>
+              <p>Lorem ipsum dolor sit amet, consec adipisicing elit.</p>
+
+              <div class="lf nf pl hb ci di">
+                <ul>
+                  <li class="ej fm sa vk">300 GB Storage</li>
+                  <li class="ej fm sa vk">Unlimited Photos and Videos</li>
+                  <li class="ej fm sa vk opacity-40">Exclusive Support</li>
+                  <li class="ej fm sa vk kj">Custom Branding Strategy</li>
+                </ul>
+              </div>
+
+              <a href="#" class="sb ee je hj dm om bj yj ek">
+                Get the Plan
+                <svg class="lg bm nm yj ek" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.4767 6.17348L6.00668 1.70348L7.18501 0.525146L13.6667 7.00681L7.18501 13.4885L6.00668 12.3101L10.4767 7.84015H0.333344V6.17348H10.4767Z" fill=""></path>
+                </svg>
+              </a>
+            </div>
+
+            <!-- Pricing Item -->
+            <div class="animate_top an ko/3 b h uf sl ye vj gm hf nf pl ug lq">
+              <div class="g m -ud-right-3.5 -ud-rotate-90 ff gf wf bj fj si dj oh hh">
+                popular
+              </div>
+
+              <h3 class="ej dm cj ri nr ea">
+                $59 <span class="wi gj fm">/month</span>
+              </h3>
+              <h4 class="ej dm bj xi cb">Medium Pack</h4>
+              <p>Lorem ipsum dolor sit amet, consec adipisicing elit.</p>
+
+              <div class="lf nf pl hb ci di">
+                <ul>
+                  <li class="ej fm sa vk">300 GB Storage</li>
+                  <li class="ej fm sa vk">Unlimited Photos and Videos</li>
+                  <li class="ej fm sa vk">Exclusive Support</li>
+                  <li class="ej fm sa vk kj">Custom Branding Strategy</li>
+                </ul>
+              </div>
+
+              <a href="#" class="sb ee je hj dm om bj yj ek">
+                Get the Plan
+                <svg class="lg bm nm yj ek" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.4767 6.17348L6.00668 1.70348L7.18501 0.525146L13.6667 7.00681L7.18501 13.4885L6.00668 12.3101L10.4767 7.84015H0.333344V6.17348H10.4767Z" fill=""></path>
+                </svg>
+              </a>
+            </div>
+
+            <!-- Pricing Item -->
+            <div class="animate_top an ko/3 b h uf sl ye vj gm hf nf pl ug lq">
+              <h3 class="ej dm cj ri nr ea">
+                $189 <span class="wi gj fm">/month</span>
+              </h3>
+              <h4 class="ej dm bj xi cb">Large Pack</h4>
+              <p>Lorem ipsum dolor sit amet, consec adipisicing elit.</p>
+
+              <div class="lf nf pl hb ci di">
+                <ul>
+                  <li class="ej fm sa vk">300 GB Storage</li>
+                  <li class="ej fm sa vk">Unlimited Photos and Videos</li>
+                  <li class="ej fm sa vk">Exclusive Support</li>
+                  <li class="ej fm sa vk">Custom Branding Strategy</li>
+                </ul>
+              </div>
+
+              <a href="#" class="sb ee je hj dm om bj yj ek">
+                Get the Plan
+                <svg class="lg bm nm yj ek" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.4767 6.17348L6.00668 1.70348L7.18501 0.525146L13.6667 7.00681L7.18501 13.4885L6.00668 12.3101L10.4767 7.84015H0.333344V6.17348H10.4767Z" fill=""></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ===== Pricing Table End ===== -->
+
+      <!-- ===== Contact Start ===== -->
+      <section id="support" class="_g nn 2xl:ud-px-0">
+        <div class="ba md h fi tp gr dh kp yq ve">
+          <div class="g -ud-z-1 ye l i rc dc/3 fg gg hg xl zl am"></div>
+          <div class="g -ud-z-1 o l rc ec/3">
+            <img src="/static/images/shape-dotted-light.svg" alt="Dotted" class="nl">
+            <img src="/static/images/shape-dotted-dark.svg" alt="Dotted" class="ub ml">
+          </div>
+
+          <div class="qb de en ce dn te jq gn">
+            <div class="animate_top rc xm/5 mo/4 mj ye uf tl ol pl ug nq">
+              <h2 class="ej dm ri mr aj _a">Send a message</h2>
+
+              <form action="https://formbold.com/s/unique_form_id" method="POST">
+                <div class="qb be po so le bp ea">
+                  <input type="text" placeholder="Full name" class="rc ko/2 bg kf nf pl jl gl qm il rm gi">
+
+                  <input type="email" placeholder="Email address" class="rc ko/2 bg kf nf pl jl gl qm il rm gi">
+                </div>
+
+                <div class="qb be po so le bp ab">
+                  <input type="text" placeholder="Subject" class="rc ko/2 bg kf nf pl jl gl qm il rm gi">
+
+                  <input type="text" placeholder="Phone number" class="rc ko/2 bg kf nf pl jl gl qm il rm gi">
+                </div>
+
+                <div class="qb ib">
+                  <textarea placeholder="Message" rows="4" class="rc bg kf nf pl jl gl qm il rm"></textarea>
+                </div>
+
+                <div class="qb de cq re kq">
+                  <div>
+                    <label for="supportCheckbox" class="rd qb yd zd bl">
+                      <div class="h">
+                        <input type="checkbox" id="supportCheckbox" class="c">
+                        <div class="box wa kb qb fc bd ee ge cf hf nf pl">
+                          <span class="lj">
+                            <svg width="11" height="8" viewBox="0 0 11 8" fill="none" class="og">
+                              <path d="M10.0915 0.951972L10.0867 0.946075L10.0813 0.940568C9.90076 0.753564 9.61034 0.753146 9.42927 0.939309L4.16201 6.22962L1.58507 3.63469C1.40401 3.44841 1.11351 3.44879 0.932892 3.63584C0.755703 3.81933 0.755703 4.10875 0.932892 4.29224L0.932878 4.29225L0.934851 4.29424L3.58046 6.95832C3.73676 7.11955 3.94983 7.2 4.1473 7.2C4.36196 7.2 4.55963 7.11773 4.71406 6.9584L10.0468 1.60234C10.2436 1.4199 10.2421 1.1339 10.0915 0.951972ZM4.2327 6.30081L4.2317 6.2998C4.23206 6.30015 4.23237 6.30049 4.23269 6.30082L4.2327 6.30081Z" stroke-width="0.4"></path>
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                      By clicking Checkbox, you agree to use our “Form” terms And consent cookie usage in browser.
+                    </label>
+                  </div>
+
+                  <button class="sb ee je tf xk hk ek rl bj fj xe xg yg">
+                    Send Message
+                    <svg class="ig" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10.4767 6.16664L6.00668 1.69664L7.18501 0.518311L13.6667 6.99998L7.18501 13.4816L6.00668 12.3033L10.4767 7.83331H0.333344V6.16664H10.4767Z" fill=""></path>
+                    </svg>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div class="animate_top rc _m/5 no ln hr">
+              <h2 class="ej dm ri mr aj ab">Find us</h2>
+
+              <div class="fa 5">
+                <h4 class="bj ej dm ui sa">Our Loaction</h4>
+                <p>290 Maryam Springs 260, Courbevoie, Paris, France</p>
+              </div>
+              <div class="fa 5">
+                <h4 class="bj ej dm ui sa">Email Address</h4>
+                <p><a href="#"><span class="__cf_email__" data-cfemail="6811071d1a05090104280c07050901060609050d460b0705">STAM@STEM.COM</span></a></p>
+              </div>
+              <div>
+                <h4 class="bj ej dm ui sa">Phone Number</h4>
+                <p><a href="#">+009 42334 6343 843</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ===== Contact End ===== -->
+
+      <!-- ===== Blog Start ===== -->
+      <section class="zg ep oq">
+        <div class="ba nd _g nn pq">
+          <!-- Section Title Start -->
+          <div class="animate_top mi ba" x-data="{ sectionTitle: `NEWS & BLOGS`, sectionSubtitle: `Latest News & Blogs`, sectionTitlePara: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor eros. Donec vitae tortor lacus. Phasellus aliquam ante in maximus.`}">
+            <div class="eg sl ol pl pb xe oh hh sa">
+  <h4 x-text="sectionTitle" class="bj yi ej dm"></h4>
+</div>
+<h2 x-text="sectionSubtitle" class="cj ri nr ej dm ym/5 zp/2 ba sa"></h2>
+<p class="ba ym/5 mo/5 aq" x-text="sectionTitlePara"></p>
+
+          </div>
+          <!-- Section Title End -->
+        </div>
+
+        <div class="ba ld _g nn pq ha vp">
+          <div class="tb _d bn oo le dq">
+            <!-- Blog Item -->
+            <div class="animate_top uf sl ye mj pg sh">
+              <a href="#" class="ob">
+                <img src="/static/images/blog-01.png" alt="Blog">
+              </a>
+
+              <div class="_g">
+                <h4 class="bj oi ir ej bl dm ia ja">
+                  <a href="blog-single.html">Free advertising for your online business</a>
+                </h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit convallis tortor.</p>
+              </div>
+            </div>
+
+            <!-- Blog Item -->
+            <div class="animate_top uf sl ye mj pg sh">
+              <a href="#" class="ob">
+                <img src="/static/images/blog-02.png" alt="Blog">
+              </a>
+
+              <div class="_g">
+                <h4 class="bj oi ir ej bl dm ia ja">
+                  <a href="bog-single.html">9 simple ways to improve your design skills</a>
+                </h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit convallis tortor.</p>
+              </div>
+            </div>
+
+            <!-- Blog Item -->
+            <div class="animate_top uf sl ye mj pg sh">
+              <a href="#" class="ob">
+                <img src="/static/images/blog-03.png" alt="Blog">
+              </a>
+
+              <div class="_g">
+                <h4 class="bj oi ir ej bl dm ia ja">
+                  <a href="blog-single.html">Tips to quickly improve your coding speed.</a>
+                </h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit convallis tortor.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ===== Blog End ===== -->
+    </main>
+    <!-- ===== Footer Start ===== -->
+
+    {% include 'footer.html' %}
+
+    <!-- ===== Footer End ===== -->
+
+    <!-- ====== Back To Top Start ===== -->
+    <button class="ub ee ge jd nc ze sj wf zk f u v _" @click="window.scrollTo({top: 0, behavior: 'smooth'})" @scroll.window="scrollTop = (window.pageYOffset > 50) ? true : false" :class="{ 'rb' : scrollTop }">
+  <svg class="ig bd fc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+    <path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"></path>
+  </svg>
+</button>
+
+    <!-- ====== Back To Top End ===== -->
+  <script defer="" src="/static/js/bundle.js"></script>
+
+
+</body></html>

@@ -2,80 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ProfessorSTEM: AI Learning Companion</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        .btn-block {
-            display: block;
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        
-        .question-box {
-            border: 2px solid #1E90FF;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 15px 0;
-            background: #F0F8FF;
-        }
-        .big-font {
-            font-size: 24px;
-            color: #1E90FF;
-        }
-        .progress-bar {
-            height: 20px;
-            border-radius: 10px;
-            background: #1E90FF;
-        }
-        .nav-link.active {
-            background-color: #1E90FF !important;
-            color: white !important;
-        }
-    </style>
+    <link rel="icon" href="/static/images/favicon.ico">
+    <link href="/static/css/style.css" rel="stylesheet">
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('home') }}">🧪 ProfessorSTEM</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
-                    </li>
-                    {% if session.get('quiz') %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('quiz') }}">Quiz</a>
-                        </li>
-                        {% if session.get('quiz').get('proficiency') %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('results') }}">Results</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('study_plan') }}">Study Plan</a>
-                            </li>
-                        {% endif %}
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-    </nav>
+<body x-data="{ page: '{{ request.endpoint }}', 'loaded': true, 'darkMode': true, 'stickyMenu': false, 'navigationOpen': false, 'scrollTop': false }" 
+    x-init="
+        darkMode = JSON.parse(localStorage.getItem('darkMode')) !== null ? JSON.parse(localStorage.getItem('darkMode')) : true;
+        $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))" 
+    :class="{'a tf': darkMode === true}">
 
-    <main class="container mb-5">
+    <!-- Preloader -->
+    <div x-show="loaded" x-init="window.addEventListener('DOMContentLoaded', () => {setTimeout(() => loaded = false, 500)})" class="f l i z mc qb ee ge id uf">
+        <div class="sc xb xe xd if mf qf sf"></div>
+    </div>
+
+    <!-- Background Lines -->
+    <div class="f i l -ud-z-10 qb hc rc ee ie">
+        <span class="hd hc dg wl qb ud"></span>
+        <span class="hd hc dg wl qb vd"></span>
+        <span class="hd hc dg wl qb wd"></span>
+    </div>
+
+    {% include 'header.html' %}
+
+    <main class="ba md _g nn 2xl:ud-px-0">
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="bg-light py-4 mt-auto">
-        <div class="container text-center">
-            <p class="mb-0">&copy; 2025 ProfessorSTEM. All rights reserved.</p>
-        </div>
-    </footer>
+    {% include 'footer.html' %}
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Back To Top Button -->
+    <button class="ub ee ge jd nc ze sj wf zk f u v _" @click="window.scrollTo({top: 0, behavior: 'smooth'})" @scroll.window="scrollTop = (window.pageYOffset > 50) ? true : false" :class="{ 'rb' : scrollTop }">
+        <svg class="ig bd fc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"></path>
+        </svg>
+    </button>
+
+    <script defer src="/static/js/bundle.js"></script>
 </body>
 </html>

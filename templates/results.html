@@ -1,98 +1,73 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-8">
-        <h2 class="text-center mb-4">📊 Your Results</h2>
-
-        <div class="card mb-4">
-            <div class="card-body">
-                <div class="row text-center">
-                    <div class="col-md-4">
-                        <div class="card bg-light mb-3">
-                            <div class="card-body">
-                                <h3 class="h5">Score</h3>
-                                <p class="display-6">{{ correct }}/{{ total }}</p>
-                                {% set percentage = (total > 0) and ((correct|float / total|float) * 100)|round|int or 0 %}
-                                {% set progress_color = 'bg-danger' if percentage < 40 else ('bg-warning' if percentage < 70 else 'bg-success') %}
-                                <div class="progress" style="height: 10px;">
-                                    <div class="progress-bar {{ progress_color }}" role="progressbar" 
-                                         style="width: {{ percentage }}%" 
-                                         aria-valuenow="{{ percentage }}" 
-                                         aria-valuemin="0" 
-                                         aria-valuemax="100">
-                                    </div>
-                                </div>
-                                <p class="text-muted mt-2">
-                                    {% if percentage >= 70 %}
-                                        <span class="text-success">{{ percentage }}% 🎉</span>
-                                    {% elif percentage >= 40 %}
-                                        <span class="text-warning">{{ percentage }}% 💪</span>
-                                    {% else %}
-                                        <span class="text-danger">{{ percentage }}% 📚</span>
-                                    {% endif %}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4">
-                        <div class="card bg-light mb-3">
-                            <div class="card-body">
-                                <h3 class="h5">Time Taken</h3>
-                                {% set minutes = (time_taken // 60)|int %}
-                                {% set seconds = (time_taken % 60)|int %}
-                                <p class="display-6">
-                                    {% if minutes > 0 %}
-                                        {{ minutes }}m {{ seconds }}s
-                                    {% else %}
-                                        {{ seconds }}s
-                                    {% endif %}
-                                </p>
-                                <p class="text-muted">
-                                    {% set avg_time = (time_taken / total)|round|int %}
-                                    {% if avg_time < 30 %}
-                                        <span class="text-success">{{ avg_time }}s per question 🚀</span>
-                                    {% elif avg_time < 60 %}
-                                        <span class="text-warning">{{ avg_time }}s per question ⌛</span>
-                                    {% else %}
-                                        <span class="text-danger">{{ avg_time }}s per question ⏰</span>
-                                    {% endif %}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4">
-                        <div class="card bg-light mb-3">
-                            <div class="card-body">
-                                <h3 class="h5">Proficiency</h3>
-                                <p class="display-6">{{ proficiency|title }}</p>
-                                <p class="text-muted">Based on ML analysis</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!-- Results Section -->
+<section class="th rn dr uh er ve">
+    <div class="ba md _g nn pq">
+        <div class="animate_top mi ba">
+            <div class="eg sl ol pl pb xe oh hh sa">
+                <h4 class="bj yi ej dm">QUIZ RESULTS</h4>
             </div>
+            <h2 class="cj ri nr ej dm ym/5 zp/2 ba sa"> Your Performance</h2>
         </div>
 
-        <div class="text-center">
-            <div class="alert alert-info" role="alert">
-                <h4 class="alert-heading">What's Next?</h4>
-                <p>Based on your performance, we've created a personalized study plan to help you improve!</p>
+        <!-- Stats Grid -->
+        <div class="tb _d bn oo le eq ua xn vp">
+            <!-- Score Card -->
+            <div class="animate_top hf of rj ye ug lq yj el km pl sl">
+                <div class="qb ee ge ze wf sc xb">
+                    <img src="/static/images/icon-01.svg" alt="Score">
+                </div>
+                <h3 class="ej dm ri mr cj fa">Score</h3>
+                <p class="cj ri jr ej dm">{{ correct }}/{{ total }}</p>
+                <!-- Progress Bar -->
+                <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-2">
+                    <div class="bg-blue-600 h-2.5 rounded-full" id="score-progress"></div>
+                </div>
+                <script>
+                    document.getElementById('score-progress').style.width = '{{ (correct / total * 100)|round }}%';
+                </script>
             </div>
 
-            <div class="mt-4">
-                <div class="d-grid gap-3 mx-auto" style="max-width: 400px;">
-                    <a href="{{ url_for('study_plan') }}" class="btn btn-success btn-lg shadow-sm">
-                        <i class="fas fa-book-open me-2"></i> View Your Study Plan 📚
-                    </a>
-                    <a href="{{ url_for('home') }}" class="btn btn-outline-primary">
-                        Try Another Topic 🔄
-                    </a>
+            <!-- Time Card -->
+            <div class="animate_top hf of rj ye ug lq yj el km pl sl">
+                <div class="qb ee ge ze wf sc xb">
+                    <img src="/static/images/icon-02.svg" alt="Time">
                 </div>
+                <h3 class="ej dm ri mr cj fa">Time Taken</h3>
+                <p class="cj ri jr ej dm">{{ time_taken }}s</p>
+                <p class="ta na">Average: {{ (time_taken / total)|round }}s per question</p>
+            </div>
+
+            <!-- Proficiency Card -->
+            <div class="animate_top hf of rj ye ug lq yj el km pl sl">
+                <div class="qb ee ge ze wf sc xb">
+                    <img src="/static/images/icon-03.svg" alt="Proficiency">
+                </div>
+                <h3 class="ej dm ri mr cj fa">Proficiency</h3>
+                <p class="cj ri jr ej dm">{{ proficiency|title }}</p>
+                <p class="ta na">Based on ML analysis</p>
+            </div>
+        </div>
+        <div class="ej dm ta text-center mt-6 text-lg font-medium"></div>
+
+        <!-- Next Steps Section -->
+        <div class="animate_bottom uf sl ye mj pg sh mt-12">
+            <div class="xf fj si sb xe gh hh wa sa">
+                <h3 class="aj qi kr ej dm">What's Next?</h3>
+            </div>
+            <p class="ej dm bj xi">Based on your performance, we've created a personalized study plan to help you improve!</p>
+            <div class="ej dm ta text-center mt-6 text-lg font-medium"></div>
+
+            <div class="mi">
+                <a href="{{ url_for('study_plan') }}" class="sb ee je bj fj em tf ul xe yg xg _k mm">
+                    View Study Plan 
+                    <svg class="lg bm nm" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.4767 6.17348L6.00668 1.70348L7.18501 0.525146L13.6667 7.00681L7.18501 13.4885L6.00668 12.3101L10.4767 7.84015H0.333344V6.17348H10.4767Z" fill="currentColor"></path>
+                    </svg>
+                </a>
             </div>
         </div>
     </div>
-</div>
+</section>
 {% endblock %}
