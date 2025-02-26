@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="ii">
+    <div class="ba sd h w fi tp gr ki dh kp yq">
+        <div class="g -ud-z-1 ye l i rc dc/3 fg gg hg xl zl am">
+            
+        </div>
+        <div class="g -ud-z-1 p l rc ec/3">
+            <img src="/static/images/shape-dotted-light.svg" alt="Dotted" class="nl">
+            <img src="/static/images/shape-dotted-dark.svg" alt="Dotted" class="ub ml">
+            
+        </div>
+
+        <div class="animate_top mj ye uf tl ol pl zh hr dh zq">
+            <img src="/static/images/shape-04.png" alt="Man" class="g -ud-top-25 -ud-left-15 wn -ud-z-1">
+  
+            <div class="text-center mb-8">
+                <h4 class="ej dm oi bj ra mb-4 text-2xl"> ProfessorSTEM: Your AI Learning Companion</h4>
+                <h1 class="ej dm ri jr cj ga text-4xl font-bold">Start Your Learning Journey</h1>
+            </div>
+
+            <!-- Card Container -->
+            <div class="animate_top uf sl ye mj pg sh bg-white dark:bg-gray-900/50 rounded-lg shadow-lg max-w-xl mx-auto">
+                <form action="{{ url_for('start_learning') }}" method="POST" class="space-y-8 p-8 md:p-10">
+                    <div class="mi">
+                        <label for="grade" class="ej dm bj dj block mb-3 text-lg">Select Grade</label>
+                        <div class="w-full max-w-full mx-auto">
+                            <div class="relative px-8 text-center">
+                                <input type="range" 
+                                    class="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-blue-500" 
+                                    id="grade" 
+                                    name="grade" 
+                                    min="1" 
+                                    max="12" 
+                                    value="7" 
+                                    oninput="gradeValue.textContent = this.value"
+                                    style="height: 20px; width: 100%;">
+                                <div class="cj ej dm ri">Grade: <span id="gradeValue" class="text-blue-500">7</span></div>
+                            </div>
+                        </div>
+                        <div class="ej dm ta text-center mt-6 text-lg font-medium"></div>
+
+                    </div>
+                                <img src="/static/images/shape-05.png" alt="Doodle" class="g k j -ud-z-1">
+                                <img src="/static/images/shape-dotted-light-02.svg" alt="Dotted" class="g i l -ud-z-1 nl">
+                                <img src="/static/images/shape-dotted-dark-02.svg" alt="Dotted" class="g i l -ud-z-1 ub ml">
+
+                        <div class="mi">
+                            <!-- Choose Subject -->                                
+                             <label for="subject" class="ej dm bj dj block mb-3 text-lg">Choose Subject</label>
+                                <div class="ej dm ta text-center mt-6 text-lg font-medium"></div>
+                            <div class="mb-8">
+                                <select class="tl hf nf pl pj gm xe hl fl pm bh xg block w-full p-4 text-lg" 
+                                    id="subject" name="subject" required>
+                                    <option value="Math">Math</option>
+                                    <option value="Science">Science</option>
+                                </select>
+
+                            </div>
+                            <div class="ej dm ta text-center mt-6 text-lg font-medium"></div>
+
+                            <!-- Enter Topic and Button -->
+                                <label for="topic" class="ej dm bj dj block mb-3 text-lg">Enter Topic</label>
+                                <div class="ej dm ta text-center mt-6 text-lg font-medium"></div>
+                            <div class="mb-8">
+                                <div class="flex items-center gap-4">
+
+                                <div class="flex items-center gap-4">
+                                    <input type="text" class="tl hf nf pl pj gm xe hl fl pm bh xg block flex-1 p-4 text-lg" 
+                                        id="topic" name="topic" required
+                                        placeholder="Topic...">
+                                    <button type="submit" class="sb ee je bj fj em tf ul xe yg xg _k mm h-full inline-flex items-center whitespace-nowrap px-6">
+                                        Start
+                                        <svg class="lg bm nm ml-2" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M10.4767 6.17348L6.00668 1.70348L7.18501 0.525146L13.6667 7.00681L7.18501 13.4885L6.00668 12.3101L10.4767 7.84015H0.333344V6.17348H10.4767Z" fill="currentColor"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="zg ep oq">
+    <div class="ba nd _g nn pq">
+        <div class="tb _d bn oo le eq ua xn vp">
+            <!-- Feature Item -->
+            <div class="animate_top hf of rj ye ug lq yj el km pl sl">
+                <div class="qb ee ge ze wf sc xb">
+                    <img src="/static/images/icon-01.svg" alt="Personalized Learning">
+                </div>
+                <h3 class="aj qi kr ej dm ia ga"> Personalized Learning</h3>
+                <p>AI-powered lessons tailored to your grade level and learning style.</p>
+            </div>
+
+            <!-- Feature Item -->
+            <div class="animate_top hf of rj ye ug lq yj el km pl sl">
+                <div class="qb ee ge ze wf sc xb">
+                    <img src="/static/images/icon-02.svg" alt="Adaptive Assessment">
+                </div>
+                <h3 class="aj qi kr ej dm ia ga"> Adaptive Assessment</h3>
+                <p>Real-time feedback and progress tracking to optimize your learning journey.</p>
+            </div>
+
+            <!-- Feature Item -->
+            <div class="animate_top hf of rj ye ug lq yj el km pl sl">
+                <div class="qb ee ge ze wf sc xb">
+                    <img src="/static/images/icon-03.svg" alt="Interactive Practice">
+                </div>
+                <h3 class="aj qi kr ej dm ia ga"> Interactive Practice</h3>
+                <p>Engaging quizzes and exercises to reinforce your understanding.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

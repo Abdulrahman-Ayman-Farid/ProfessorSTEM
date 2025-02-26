@@ -1,0 +1,69 @@
+<header class="f l i rc y ph" :class="{ 'uf tl xj qh zj fk' : stickyMenu }" @scroll.window="stickyMenu = (window.pageYOffset > 20) ? true : false">
+    <div class="ba md _g nn 2xl:ud-px-0 do ee he h">
+      <div class="rc ko/4 qb ee he">
+        <a href="/">
+          <img class="nl" src="/static/images/logo-light.svg" alt="Logo Light">
+          <img class="ub ml" src="/static/images/logo-dark.svg" alt="Logo Dark">
+        </a>
+  
+        <!-- Hamburger Toggle BTN -->
+        <button class="eo ob" @click="navigationOpen = !navigationOpen">
+          <span class="ob h yd dd gc">
+            <span class="ob g rc hc">
+              <span class="ob h i l tf ul df ed ic da hk gk _j" :class="{ 'fd ak': !navigationOpen }"></span>
+              <span class="ob h i l tf ul df ed ic da hk gk bk" :class="{ 'fd pr': !navigationOpen }"></span>
+              <span class="ob h i l tf ul df ed ic da hk gk ck" :class="{ 'fd dk': !navigationOpen }"></span>
+            </span>
+            <span class="ob g rc hc td">
+              <span class="ob tf ul df hk gk ak g r i gd hc" :class="{ 'jc _j': !navigationOpen }"></span>
+              <span class="ob tf ul df hk gk pr g l top-2.5 rc ic" :class="{ 'jc ck': !navigationOpen }"></span>
+            </span>
+          </span>
+        </button>
+        <!-- Hamburger Toggle BTN -->
+      </div>
+  
+      <div class="rc lg:w-3/4 jc fo e un do ee he" :class="{ 'd uf sl sj kc oc we _e lb ug': navigationOpen }">
+        <nav>
+          <ul class="qb ro be po qe dp">
+            <li><a href="/" class="bl" :class="{ 'hj': page === 'home' }">Home</a></li>
+            <li><a href="/#features" class="bl">Features</a></li>
+            <!-- <li><a href="/signin" class="bl" :class="{ 'hj': page === 'signin' }">Sign In</a></li>
+            <li><a href="/signup" class="bl" :class="{ 'hj': page === 'signup' }">Sign Up</a></li> -->
+            <!-- <li class="b h" x-data="{ dropdown: false }">
+              <a href="#" class="bl qb ee he oe" @click.prevent="dropdown = !dropdown" :class="{ 'hj': page === 'blog-grid' || page === 'blog-single' || page === 'signin' || page === 'signup' || page === '404' }">
+                Pages
+  
+                <svg :class="{ 'lg': dropdown }" class="ng ll uc lc yd" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                  <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"></path>
+                </svg>
+              </a>
+  
+              <ul class="dropdown" :class="{ 'qb': dropdown }">
+                <li><a href="blog-grid.html" class="bl" :class="{ 'hj': page === 'blog-grid' }">Blog Grid</a></li>
+                <li><a href="blog-single.html" class="bl" :class="{ 'hj': page === 'blog-single' }">Blog Single</a></li>
+                <li><a href="/signin" class="bl" :class="{ 'hj': page === 'signin' }">Sign In</a></li>
+                <li><a href="/signup" class="bl" :class="{ 'hj': page === 'signup' }">Sign Up</a></li>
+                <li><a href="404.html" class="bl" :class="{ 'hj': page === '404' }">404</a></li>
+              </ul>
+            </li> -->
+            <li><a href="/#support" class="bl">Support</a></li>
+            <li><a href="/todolist" class="bl">TodoList</a></li>
+          </ul>
+        </nav>
+  
+        <div class="qb ee se ka bo">
+            <label class="ob m-0 h">
+              <input type="checkbox" :value="darkMode" @change="darkMode = !darkMode" class="yd rc hc lj g i x aa">
+              <img class="nl" src="/static/images/icon-sun.svg" alt="Sun">
+              <img class="ub ml" src="/static/images/icon-moon.svg" alt="Moon">
+            </label>
+  
+          <a href="/signin" class="gj wi bj bl":class="{ 'hj': page === 'signin' }">Sign In</a>
+          <a href="/signup" class="gj wi bj bl":class="{ 'hj': page === 'signup' }">Sign up</a>
+          <!-- <a href="#" class="qb ee ge wf zk hk ek fj wi xe bh dh">Download</a> -->
+        </div>
+      </div>
+    </div>
+  </header>
+  
