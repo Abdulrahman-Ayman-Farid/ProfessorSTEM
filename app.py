@@ -51,10 +51,14 @@ def todolist():
 
 app.add_url_rule('/user_training', view_func=routes.user_training)
 app.add_url_rule('/start_learning', view_func=routes.start_learning, methods=['POST'])
-app.add_url_rule('/quiz', view_func=routes.quiz)
-app.add_url_rule('/submit_answer', view_func=routes.submit_answer, methods=['POST'])
-app.add_url_rule('/results', view_func=routes.results)
+app.add_url_rule('/first_quiz', view_func=routes.first_quiz)
+app.add_url_rule('/submit_first_quiz', view_func=routes.submit_first_quiz, methods=['POST'])
+app.add_url_rule('/first_results', view_func=routes.first_results)
 app.add_url_rule('/study_plan', view_func=routes.study_plan)
+app.add_url_rule('/final_quiz', view_func=routes.final_quiz)
+app.add_url_rule('/submit_final_quiz', view_func=routes.submit_final_quiz, methods=['POST'])
+app.add_url_rule('/final_results', view_func=routes.final_results)
+app.add_url_rule('/comparison', view_func=routes.comparison)
 
 if __name__ == "__main__":
     app.run(debug=True)

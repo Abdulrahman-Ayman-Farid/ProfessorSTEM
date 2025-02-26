@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Comparison Section -->
+<section class="th rn dr uh er ve">
+    <div class="ba md _g nn pq">
+        <div class="animate_top mi ba">
+            <div class="eg sl ol pl pb xe oh hh sa">
+                <h4 class="bj yi ej dm">PROGRESS COMPARISON</h4>
+            </div>
+            <h2 class="cj ri nr ej dm ym/5 zp/2 ba sa">Your Learning Journey</h2>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="tb _d bn oo le eq ua xn vp">
+            <!-- Initial Score Card -->
+            <div class="animate_top hf of rj ye ug lq yj el km pl sl">
+                <div class="qb ee ge ze wf sc xb">
+                    <img src="/static/images/icon-01.svg" alt="Initial Score">
+                </div>
+                <h3 class="ej dm ri mr cj fa">Initial Score</h3>
+                <p class="cj ri jr ej dm">{{ initial_score }}%</p>
+                <div class="xf fj si sb xe gh hh wa sa">
+                    <h3 class="aj qi kr ej dm">{{ initial_correct }}/{{ initial_total }} Correct</h3>
+                </div>
+                <!-- Progress Bar -->
+                <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-2">
+                    <div class="bg-blue-600 h-2.5 rounded-full" id="initial-progress"></div>
+                </div>
+                <script>
+                    document.getElementById('initial-progress').style.width = '{{ initial_score }}%';
+                </script>
+            </div>
+
+            <!-- Final Score Card -->
+            <div class="animate_top hf of rj ye ug lq yj el km pl sl">
+                <div class="qb ee ge ze wf sc xb">
+                    <img src="/static/images/icon-02.svg" alt="Final Score">
+                </div>
+                <h3 class="ej dm ri mr cj fa">Final Score</h3>
+                <p class="cj ri jr ej dm">{{ final_score }}%</p>
+                <div class="xf fj si sb xe gh hh wa sa">
+                    <h3 class="aj qi kr ej dm">{{ final_correct }}/{{ final_total }} Correct</h3>
+                </div>
+                <!-- Progress Bar -->
+                <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-2">
+                    <div class="bg-green-600 h-2.5 rounded-full" id="final-progress"></div>
+                </div>
+                <script>
+                    document.getElementById('final-progress').style.width = '{{ final_score }}%';
+                </script>
+            </div>
+
+            <!-- Improvement Card -->
+            <div class="animate_top hf of rj ye ug lq yj el km pl sl">
+                <div class="qb ee ge ze wf sc xb">
+                    <img src="/static/images/icon-03.svg" alt="Improvement">
+                </div>
+                <h3 class="ej dm ri mr cj fa">Improvement</h3>
+                <p class="cj ri jr ej dm {% if improvement > 0 %}text-green-500{% else %}text-red-500{% endif %}">
+                    {% if improvement > 0 %}+{% endif %}{{ improvement }}%
+                </p>
+                <div class="xf fj si sb xe gh hh wa sa">
+                    <h3 class="aj qi kr ej dm">Overall Progress</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations Section -->
+        <div class="animate_bottom uf sl ye mj pg sh mt-12">
+            <div class="xf fj si sb xe gh hh wa sa">
+                <h3 class="aj qi kr ej dm">Learning Recommendations</h3>
+            </div>
+            
+            {% for recommendation in recommendations %}
+            <div class="animate_top hf of rj ye ug lq yj el km pl sl mb-4">
+                <div class="xf fj si sb xe gh hh wa sa">
+                    <h4 class="ej dm bj dj">{{ recommendation.topic }}</h4>
+                </div>
+                <p class="ej dm bj xi">{{ recommendation.advice }}</p>
+            </div>
+            {% endfor %}
+            <div class="ej dm ta text-center mt-6 text-lg font-medium"></div>
+
+            <div class="mi mt-8">
+                <a href="{{ url_for('study_plan') }}" class="sb ee je bj fj em tf ul xe yg xg _k mm">
+                    Return to Study Plan 
+                    <svg class="lg bm nm" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.4767 6.17348L6.00668 1.70348L7.18501 0.525146L13.6667 7.00681L7.18501 13.4885L6.00668 12.3101L10.4767 7.84015H0.333344V6.17348H10.4767Z" fill="currentColor"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

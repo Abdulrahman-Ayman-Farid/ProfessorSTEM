@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- First Quiz Section -->
+<section class="th rn dr uh er ve">
+    <div class="ba md _g nn pq">
+        <div class="animate_top mi ba">
+            <div class="eg sl ol pl pb xe oh hh sa">
+                <h4 class="bj yi ej dm">INITIAL ASSESSMENT</h4>
+            </div>
+            <h2 class="cj ri nr ej dm ym/5 zp/2 ba sa">Let's Check Your Starting Level</h2>
+        </div>
+
+        <form action="{{ url_for('submit_first_quiz') }}" method="POST">
+            {% for question in questions %}
+                {% set question_num = start_idx + loop.index0 %}
+                <!-- Question Card -->
+                <div class="animate_top uf sl ye mj pg sh mb-8">
+                    <div class="xf fj si sb xe gh hh wa sa">
+                        <h3 class="aj qi kr ej dm">Question {{ start_idx + loop.index }}</h3>
+                    </div>
+                    
+                    <div class="ej dm bj xi pb-4 border-b">
+                        <p class="ga">{{ question.question }}</p>
+                    </div>
+                    
+                    <!-- Answers Grid -->
+                    <div class="pt-4">
+                        <h4 class="ej dm bj dj pb-4">Select Your Answer:</h4>
+                        <div class="yd qb he ee bj ui ej dm mh hp xg ip question-box">
+                            {% for option in question.options %}
+                                <div class="animate_top hf of rj ye ug lq yj el km pl sl option-box">
+                                    <div class="aj qi kr ej dm">
+                                        <input type="radio" 
+                                               class="answer-radio"
+                                               name="answers[{{ question_num }}]" 
+                                               value="{{ option }}" 
+                                               id="q{{ question_num }}_{{ loop.index }}"
+                                               required>
+                                        <label for="q{{ question_num }}_{{ loop.index }}">
+                                            {{ option }}
+                                        </label>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <style>
+                    .answer-radio {
+                        display: none;
+                    }
+                    
+                    .option-box.selected {
+                        background-color: #03b0a4; 
+                        transition: background-color 0.3s ease-in-out;
+                        cursor: pointer;
+                    }
+                    </style>
+                    
+                    <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const questionBoxes = document.querySelectorAll(".question-box");
+                        questionBoxes.forEach(questionBox => {
+                            const options = questionBox.querySelectorAll(".option-box");
+                            options.forEach(option => {
+                                option.addEventListener("click", function () {
+                                    options.forEach(opt => opt.classList.remove("selected"));
+                                    this.classList.add("selected");
+                                    const radio = this.querySelector("input[type='radio']");
+                                    if (radio) {
+                                        radio.checked = true;
+                                    }
+                                });
+                            });
+                        });
+                    });
+                    </script>
+                </div>
+            {% endfor %}
+
+            <!-- Navigation -->
+            <div class="qb ee fe cq">             
+                <div>
+                    {% if current_page > 0 %}
+                    <a href="{{ url_for('first_quiz', page=current_page-1) }}" class="sb ee je hj dm om bj yj ek">
+                        <svg class="lg bm nm" width="20" height="20" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.5233 6.17348L7.99332 1.70348L6.81499 0.525146L0.333328 7.00681L6.81499 13.4885L7.99332 12.3101L3.5233 7.84015H13.6667V6.17348H3.5233Z" fill="currentColor"></path>
+                        </svg>
+                        Previous Page
+                    </a>
+                    {% endif %}
+                </div>
+
+                <div class="ej dm bj xi">
+                    Page {{ current_page + 1 }} of {{ total_pages }}
+                </div>
+
+                <div>
+                    {% if current_page < total_pages - 1 %}
+                        <button type="submit" class="sb ee je bj fj em tf ul xe yg xg _k mm">
+                            Save & Continue
+                            <svg class="lg bm nm" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.4767 6.17348L6.00668 1.70348L7.18501 0.525146L13.6667 7.00681L7.18501 13.4885L6.00668 12.3101L10.4767 7.84015H0.333344V6.17348H10.4767Z" fill="currentColor"></path>
+                            </svg>
+                        </button>
+                    {% else %}
+                        <button type="submit" class="sb ee je bj fj em tf ul xe yg xg _k mm">
+                            Complete Initial Assessment
+                            <svg class="lg bm nm" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10.4767 6.17348L6.00668 1.70348L7.18501 0.525146L13.6667 7.00681L7.18501 13.4885L6.00668 12.3101L10.4767 7.84015H0.333344V6.17348H10.4767Z" fill="currentColor"></path>
+                            </svg>
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

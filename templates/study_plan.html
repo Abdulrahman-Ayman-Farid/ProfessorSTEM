@@ -11,7 +11,23 @@
             <h2 class="cj ri nr ej dm ym/5 zp/2 ba sa">Your Learning Journey</h2>
         </div>
 
-        <div x-data="{ activeTab: 'plan' }">
+        <div x-data="{ activeTab: 'plan', loading: true }" x-init="setTimeout(() => loading = false, 3000)">
+            <!-- Loading State -->
+            <div x-show="loading" class="uf sl ye mj pg sh text-center">
+                <div class="xf fj si sb xe gh hh wa sa">
+                    <div class="animate-spin inline-block w-16 h-16 border-[6px] border-current border-t-transparent text-blue-600 rounded-full dark:text-blue-500" role="status" aria-label="loading">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <h3 class="ej dm ri mr cj fa mt-6">Preparing Your Study Plan...</h3>
+                <p class="ta na">Analyzing your performance and customizing content...</p>
+                <div class="w-full max-w-md mx-auto bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-8">
+                    <div class="bg-blue-600 h-2.5 rounded-full animate-progress"></div>
+                </div>
+            </div>
+
+            <!-- Content (hidden while loading) -->
+            <div x-show="!loading" x-transition:enter="transition-opacity duration-500" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
             <!-- Tabs Navigation -->
             <div class="animate_top hf nf pl sl sj hm uf bf qb de en fn ge yo eq _a wp">
                 <button class="h yd rc wm kf wk jn nf pl qb ee pe ch qq xg rq" 
@@ -23,11 +39,6 @@
                         :class="{ 'active pk ok uk ik mk kk qk rk': activeTab === 'guide' }" 
                         @click="activeTab = 'guide'">
                     Detailed Guide
-                </button>
-                <button class="h yd rc wm kf wk jn nf pl qb ee pe ch qq xg rq" 
-                        :class="{ 'active pk ok uk ik mk kk qk rk': activeTab === 'progress' }" 
-                        @click="activeTab = 'progress'">
-                    Progress
                 </button>
             </div>
 
@@ -57,49 +68,6 @@
                 </div>
             </div>
 
-            <!-- Progress Tab -->
-            <div x-show="activeTab === 'progress'" class="uf sl ye mj pg sh">
-                <div class="qb ee ge ze wf sc xb hj">
-                    <h3 class="aj qi kr ej dm">Learning Progress</h3>
-                </div>
-                
-                <!-- Progress Bar -->
-                <div class="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700 mb-6">
-                    <div class="bg-blue-600 h-4 rounded-full text-center text-xs text-white leading-4" style="width: 30%">
-                        30% Complete
-                    </div>
-                </div>
-
-                <!-- Progress Stats -->
-                <div class="tb _d bn oo le eq ua xn vp">
-                    <!-- Modules Card -->
-                    <div class="animate_top hf of rj ye ug lq yj el km pl sl">
-                        <div class="qb ee ge ze wf sc xb">
-                            <img src="/static/images/icon-01.svg" alt="Modules">
-                        </div>
-                        <h3 class="ej dm ri mr cj fa">Modules Completed</h3>
-                        <p class="cj ri jr ej dm">2/7</p>
-                    </div>
-
-                    <!-- Questions Card -->
-                    <div class="animate_top hf of rj ye ug lq yj el km pl sl">
-                        <div class="qb ee ge ze wf sc xb">
-                            <img src="/static/images/icon-02.svg" alt="Questions">
-                        </div>
-                        <h3 class="ej dm ri mr cj fa">Practice Questions</h3>
-                        <p class="cj ri jr ej dm">15</p>
-                    </div>
-
-                    <!-- Time Card -->
-                    <div class="animate_top hf of rj ye ug lq yj el km pl sl">
-                        <div class="qb ee ge ze wf sc xb">
-                            <img src="/static/images/icon-03.svg" alt="Time">
-                        </div>
-                        <h3 class="ej dm ri mr cj fa">Time Invested</h3>
-                        <p class="cj ri jr ej dm">45m</p>
-                    </div>
-                </div>
-                </div>
             </div>
         </div>
 
@@ -108,17 +76,18 @@
             <div class="ba md dh pn vq kh wq ye fg gg hg xl yl _l sl cm">
                 <div class="qb de en fn gn te hn">
                     <div class="animate_left zm ko/2" data-sr-id="57" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transition: all, opacity 2.8s cubic-bezier(0.5, 0, 0, 1), transform 2.8s cubic-bezier(0.5, 0, 0, 1);">
-                        <h2 class="ej dm ri or cj sa xc/12"> Congratulations! 🎉</h2>
+                        <h2 class="ej dm ri or cj sa xc/12">You Got This! 💪</h2>
                         <p>
-                            You have successfully completed the challenge! This is a remarkable achievement that reflects your hard work and dedication.  
-                            Now, you can proudly claim your certificate!
+                            The final exam is just around the corner, and this is your moment to shine!  
+                            Stay focused, keep pushing forward, and trust in all the effort you've put in.  
+                            Success is within your reach—go and make it happen! 🚀
                         </p>
                     </div>
                     <div class="animate_right lo" data-sr-id="63" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transition: all, opacity 2.8s cubic-bezier(0.5, 0, 0, 1), transform 2.8s cubic-bezier(0.5, 0, 0, 1);">
                         <div class="qb ee fe cq">
-                            <img src="/static/images/shape-06.png" alt="Success" class="ub yp">
-                            <a href="########################" class="sb ee je bj fj em tf ul xe yg xg _k mm">
-                                Congratulations!
+                            <img src="/static/images/shape-06.png" alt="Motivation" class="ub yp">
+                            <a href="/final_quiz" class="sb ee je bj fj em tf ul xe yg xg _k mm">
+                                Stay Determined!
                                 <img src="/static/images/icon-arrow-dark.svg" alt="Arrow" class="nl">
                                 <img src="/static/images/icon-arrow-light.svg" alt="Arrow" class="ub ml">
                             </a>
@@ -127,7 +96,7 @@
                 </div>
             </div>
         </section>
-        
+                
 
 <style>
             /* Base styles */
@@ -337,6 +306,19 @@
 
             .topic-section {
                 animation: fadeIn 0.5s ease-out;
+            }
+
+            /* Loading Animation */
+            @keyframes progress {
+                0% { width: 0%; }
+                20% { width: 25%; }
+                50% { width: 50%; }
+                70% { width: 75%; }
+                100% { width: 98%; }
+            }
+
+            .animate-progress {
+                animation: progress 2.5s ease-in-out infinite;
             }
 </style>
 {% endblock %}
