@@ -24,29 +24,61 @@
             <!-- Card Container -->
             <div class="animate_top uf sl ye mj pg sh bg-white dark:bg-gray-900/50 rounded-lg shadow-lg max-w-xl mx-auto">
                 <form action="{{ url_for('start_learning') }}" method="POST" class="space-y-8 p-8 md:p-10">
-                    <div class="mi">
-                        <label for="grade" class="ej dm bj dj block mb-3 text-lg">Select Grade</label>
-                        <div class="w-full max-w-full mx-auto">
-                            <div class="relative px-8 text-center">
-                                <input type="range" 
-                                    class="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-blue-500" 
-                                    id="grade" 
-                                    name="grade" 
-                                    min="1" 
-                                    max="12" 
-                                    value="7" 
-                                    oninput="gradeValue.textContent = this.value"
-                                    style="height: 20px; width: 100%;">
-                                <div class="cj ej dm ri">Grade: <span id="gradeValue" class="text-blue-500">7</span></div>
-                            </div>
+                    
+                    <div class="space-y-6">
+                        <!-- Age Input -->
+                        <div class="mi">
+                            <label for="age" class="ej dm bj dj block mb-3 text-lg">Student's Age</label>
+                            <input type="number" 
+                                class="tl hf nf pl pj gm xe hl fl pm bh xg block w-full p-4 text-lg" 
+                                id="age" 
+                                name="age" 
+                                min="5" 
+                                max="18" 
+                                required
+                                placeholder="Ex : 12">
                         </div>
                         <div class="ej dm ta text-center mt-6 text-lg font-medium"></div>
 
+                        <!-- School Level Selection -->
+                        <div class="mi">
+                            <label for="school_level" class="ej dm bj dj block mb-3 text-lg">School Level</label>
+                            <select class="tl hf nf pl pj gm xe hl fl pm bh xg block w-full p-4 text-lg" 
+                                id="school_level" 
+                                name="school_level" 
+                                required>
+                                <option value="">Select school level...</option>
+                                <option value="Elementary School">Elementary School</option>
+                                <option value="Middle School">Middle School</option>
+                                <option value="High School">High School</option>
+                            </select>
+                        </div>
+                        <div class="ej dm ta text-center mt-6 text-lg font-medium"></div>
+
+                        <!-- Grade Selection -->
+                        <div class="mi">
+                            <label for="grade" class="ej dm bj dj block mb-3 text-lg">Select Grade</label>
+                            <div class="w-full max-w-full mx-auto">
+                                <div class="relative px-8 text-center">
+                                    <input type="range" 
+                                        class="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-blue-500" 
+                                        id="grade" 
+                                        name="grade" 
+                                        min="1" 
+                                        max="12" 
+                                        value="7" 
+                                        oninput="gradeValue.textContent = this.value"
+                                        style="height: 20px; width: 100%;">
+                                    <div class="cj ej dm ri">Grade: <span id="gradeValue" class="text-blue-500">7</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                                 <img src="/static/images/shape-05.png" alt="Doodle" class="g k j -ud-z-1">
                                 <img src="/static/images/shape-dotted-light-02.svg" alt="Dotted" class="g i l -ud-z-1 nl">
                                 <img src="/static/images/shape-dotted-dark-02.svg" alt="Dotted" class="g i l -ud-z-1 ub ml">
-
+                                
+                        <div class="ej dm ta text-center mt-6 text-lg font-medium"></div>
                         <div class="mi">
                             <!-- Choose Subject -->                                
                              <label for="subject" class="ej dm bj dj block mb-3 text-lg">Choose Subject</label>

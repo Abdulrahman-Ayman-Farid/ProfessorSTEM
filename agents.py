@@ -42,9 +42,23 @@ class CentralAgent:
     def generate_quiz(self, topic, grade):
         if not isinstance(topic, str) or not isinstance(grade, int):
             raise ValueError("Invalid topic or grade format")
+        
+        from flask import session
+        quiz_data = session.get('first_quiz', {})
+        
+        # Use provided age and school level from session
+        age = quiz_data.get('age', grade + 5)  # Fallback to calculated age if not in session
+        school_level = quiz_data.get('school_level', 'Middle School')  # Fallback to middle school if not in session
             
         prompt = f"""
-        Generate a 15-question MCQ Exam on {topic} for grade {grade}.
+        Generate a 25-question MCQ Exam on {topic} for {school_level} students in grade {grade} (age: {age}).
+
+        Consider the following factors when generating questions:
+        1. Age-appropriate language and complexity (for {age}-year-olds)
+        2. {school_level} curriculum standards and expectations
+        3. Typical attention span and cognitive development at age {age}
+        4. Real-world examples that {age}-year-old students can relate to
+
         Format each question exactly like:
         [Question X] What is the question text? | Option 1 | Option 2 | Option 3 | Option 4 | Correct Answer
 
@@ -52,11 +66,15 @@ class CentralAgent:
         [Question 1] What is 2+2? | 3 | 4 | 5 | 6 | 4
 
         Make questions progressively harder and include:
-        1. Basic recall questions (33%)
-        2. Understanding/application questions (33%)
-        3. Analysis/problem-solving questions (34%)
+        1. Basic recall questions (33%) - Match {school_level} comprehension level
+        2. Understanding/application questions (33%) - Use age-appropriate examples
+        3. Analysis/problem-solving questions (34%) - Align with cognitive abilities at age {age}
 
-        Make sure each question is appropriate for grade {grade} level students.
+        Ensure questions are:
+        - Using vocabulary appropriate for {age}-year-olds
+        - Referencing concepts familiar to {school_level} students
+        - Structured at the right difficulty level for grade {grade}
+        - Including relatable examples for this age group
         """
         # Use appropriate agent based on topic difficulty
         if grade <= 6:

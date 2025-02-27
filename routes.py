@@ -11,19 +11,36 @@ def user_training():
 def start_learning():
     try:
         grade = int(request.form.get('grade', 0))
+        age = int(request.form.get('age', 0))
+        school_level = request.form.get('school_level', '').strip()
         subject = request.form.get('subject', '').strip()
         topic = request.form.get('topic', '').strip()
         
-        if not all([grade, subject, topic]):
+        # Validate all required fields
+        if not all([grade, age, school_level, subject, topic]):
             flash('Please fill in all fields', 'error')
             return redirect(url_for('user_training'))
             
+        # Validate grade range
         if grade < 1 or grade > 12:
             flash('Invalid grade level', 'error')
             return redirect(url_for('user_training'))
             
+        # Validate age range
+        if age < 5 or age > 18:
+            flash('Invalid age', 'error')
+            return redirect(url_for('user_training'))
+            
+        # Validate school level
+        valid_school_levels = ['Elementary School', 'Middle School', 'High School']
+        if school_level not in valid_school_levels:
+            flash('Invalid school level', 'error')
+            return redirect(url_for('user_training'))
+            
         session['first_quiz'] = {
             'grade': grade,
+            'age': age,
+            'school_level': school_level,
             'subject': subject,
             'topic': topic,
             'questions': [],
@@ -180,9 +197,19 @@ def study_plan():
             # Join back preserving line breaks
             return '\n'.join(cleaned_lines)
 
+        # Get age and school level from quiz data
+        age = quiz_data['age']
+        school_level = quiz_data['school_level']
+
         # Generate study plan content
         raw_study_plan = agent.generate_content(f"""
-            Create a detailed study plan for {quiz_data['topic']} for grade {quiz_data['grade']} students.
+            Create a detailed study plan for {quiz_data['topic']} tailored for {school_level} students in grade {quiz_data['grade']} (age: {age}).
+
+            Consider the following learning characteristics:
+            - Attention span typical for {age}-year-olds
+            - Age-appropriate learning methods and activities
+            - {school_level} curriculum standards
+            - Cognitive development stage for this age group
 
             IMPORTANT: Return ONLY the following HTML structure without any additional text or markdown:
 
@@ -213,17 +240,18 @@ def study_plan():
                 </div>
             </div>
 
-            Create 4 sections with proper HTML indentation:
-            1. Foundations (45 minutes)
-            2. Core Concepts (60 minutes)
-            3. Advanced Applications (45 minutes)
-            4. Mastery Review (30 minutes)
+            Create 4 sections with proper HTML indentation and age-appropriate content:
+            1. Foundations (45 minutes) - Use {school_level}-level explanations and examples
+            2. Core Concepts (60 minutes) - Match cognitive abilities of {age}-year-olds
+            3. Advanced Applications (45 minutes) - Align with grade {quiz_data['grade']} standards
+            4. Mastery Review (30 minutes) - Include age-appropriate assessment activities
 
             Each section should:
-            - Have clear, measurable learning goals
-            - Include specific examples related to {quiz_data['topic']}
-            - List detailed practice exercises
-            - Define progress milestones
+            - Have clear, measurable learning goals suited for {school_level} students
+            - Include specific examples that {age}-year-olds can relate to
+            - List detailed practice exercises appropriate for grade {quiz_data['grade']}
+            - Define progress milestones matching this age group's capabilities
+            - Use vocabulary and explanations suitable for {age}-year-olds
         """)
 
         study_plan = clean_content(raw_study_plan)
@@ -231,7 +259,13 @@ def study_plan():
         # Generate guide content with proper structure
         raw_guide = agent.generate_content(f"""
             Create a detailed guide for {quiz_data['topic']} in {subject} 
-            for grade {quiz_data['grade']} students.
+            tailored for {school_level} students in grade {quiz_data['grade']} (age: {age}).
+
+            Consider these age-specific factors:
+            - Use language and explanations appropriate for {age}-year-olds
+            - Include examples relevant to {school_level} students' experiences
+            - Match the complexity to grade {quiz_data['grade']} cognitive abilities
+            - Focus on learning styles effective for this age group
 
             IMPORTANT: Return ONLY the following HTML structure without any additional text or markdown:
 
@@ -258,23 +292,26 @@ def study_plan():
                 </div>
             </div>
 
-            Create 3 sections:
-            1. Basic Concepts
-            2. Problem-Solving Strategies
-            3. Advanced Applications
+            Create 3 sections tailored to {school_level} level:
+            1. Basic Concepts - Using age-appropriate explanations
+            2. Problem-Solving Strategies - Matching {age}-year-old cognitive abilities
+            3. Advanced Applications - Aligned with grade {quiz_data['grade']} expectations
 
             Each section should:
-            - Explain concepts clearly for grade {quiz_data['grade']} level
-            - Include relevant examples
-            - Highlight common mistakes to avoid
-            - Show practical applications
+            - Explain concepts clearly for {school_level} students
+            - Include examples relevant to {age}-year-olds' daily experiences
+            - Highlight common mistakes students at this level typically make
+            - Show practical applications that connect to their world
+            - Use vocabulary and complexity appropriate for grade {quiz_data['grade']}
         """)
 
         guide = clean_content(raw_guide)
         
-        # Initialize final quiz with same parameters
+        # Initialize final quiz with all parameters including age and school level
         session['final_quiz'] = {
             'grade': quiz_data['grade'],
+            'age': quiz_data['age'],
+            'school_level': quiz_data['school_level'],
             'subject': quiz_data['subject'],
             'topic': quiz_data['topic'],
             'questions': [],
