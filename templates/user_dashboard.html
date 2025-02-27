@@ -1,34 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/static/images/favicon.ico"><link href="/static/css/style.css" rel="stylesheet"></head>
-    <title>Dashboard</title>
-</head>
-<body>
-    <h1>Welcome admin </h1>
-    <p>You are logged in successfully.</p>
-    <a href="/user_training">user training</a>
-    <a href="/logout">Log out</a>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      <div class="alert-container" id="alertMessage">
-        {% for category, message in messages %}
-          <div class="alert {{ category }}">
-            <span class="alert-icon">
-              {% if category == 'success' %}
-                ✔️
-              {% elif category == 'error' %}
-                ❌
-              {% endif %}
-            </span>
-            <span class="alert-message">{{ message }}</span>
-          </div>
-        {% endfor %}
-      </div>
-    {% endif %}
-  {% endwith %}
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block content %}
+
+        <!-- User Dashboard page Button -->
+        <section class="zg ep oq _g nn 2xl:ud-px-0 ve">
+            <div class="ba md dh pn vq kh wq ye fg gg hg xl yl _l sl cm">
+                <div class="qb de en fn gn te hn">
+                    <div class="animate_left zm ko/2" data-sr-id="57" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transition: all, opacity 2.8s cubic-bezier(0.5, 0, 0, 1), transform 2.8s cubic-bezier(0.5, 0, 0, 1);">
+                        <h2 class="ej dm ri or cj sa xc/12">Believe in Yourself! 🌟</h2>
+                        <p>
+                          You're stronger and smarter than you think! Every challenge is a chance to grow, and this quiz is just another step toward your success. Stay confident, stay focused, and give it your best shot! 🚀💪
+
+                        </p>
+                    </div>
+                    <div class="animate_right lo" data-sr-id="63" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transition: all, opacity 2.8s cubic-bezier(0.5, 0, 0, 1), transform 2.8s cubic-bezier(0.5, 0, 0, 1);">
+                        <div class="qb ee fe cq">
+                            <img src="/static/images/shape-06.png" alt="Motivation" class="ub yp">
+                            <a href="/final_quiz" class="sb ee je bj fj em tf ul xe yg xg _k mm">
+                              You got this! 
+                                <img src="/static/images/icon-arrow-dark.svg" alt="Arrow" class="nl">
+                                <img src="/static/images/icon-arrow-light.svg" alt="Arrow" class="ub ml">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+                
+
+{% endblock %}
