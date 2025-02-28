@@ -6,13 +6,13 @@ from proficiency import assess_proficiency
 # Configure Gemini clients
 try:
     genai.configure(api_key=CENTRAL_API_KEY)
-    central_model = genai.GenerativeModel('gemini-2.0-pro-exp-02-05')
+    central_model = genai.GenerativeModel('gemini-1.5-flash')
 
     genai.configure(api_key=MATH_API_KEY)
-    math_model = genai.GenerativeModel('gemini-2.0-pro-exp-02-05')
+    math_model = genai.GenerativeModel('gemini-1.5-flash')
 
     genai.configure(api_key=SCIENCE_API_KEY)
-    science_model = genai.GenerativeModel('gemini-2.0-pro-exp-02-05')
+    science_model = genai.GenerativeModel('gemini-1.5-flash')
 
 except Exception as e:
     logger.error(f"Error initializing Generative AI models: {str(e)}")
