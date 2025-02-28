@@ -47,7 +47,6 @@
                 <li><a href="404.html" class="bl" :class="{ 'hj': page === '404' }">404</a></li>
               </ul>
             </li> -->
-            <li><a href="/#support" class="bl">Support</a></li>
             <li><a href="/todolist" class="bl">TodoList</a></li>
           </ul>
         </nav>
@@ -59,11 +58,18 @@
               <img class="ub ml" src="/static/images/icon-moon.svg" alt="Moon">
             </label>
   
-          <a href="/signin" class="gj wi bj bl":class="{ 'hj': page === 'signin' }">Sign In</a>
-          <a href="/signup" class="gj wi bj bl":class="{ 'hj': page === 'signup' }">Sign up</a>
-          <!-- <a href="#" class="qb ee ge wf zk hk ek fj wi xe bh dh">Download</a> -->
+          {% if session.get('user') %}
+            {% if session.get('role') == 'admin' %}
+              <a href="/admin/dashboard" class="gj wi bj bl":class="{ 'hj': page === 'admin_dashboard' }">Dashboard</a>
+            {% else %}
+              <a href="/user/dashboard" class="gj wi bj bl":class="{ 'hj': page === 'user_dashboard' }">Dashboard</a>
+            {% endif %}
+            <a href="/logout" class="gj wi bj bl">Logout</a>
+          {% else %}
+            <a href="/signin" class="gj wi bj bl":class="{ 'hj': page === 'signin' }">Sign In</a>
+            <a href="/signup" class="gj wi bj bl":class="{ 'hj': page === 'signup' }">Sign up</a>
+          {% endif %}
         </div>
       </div>
     </div>
   </header>
-  

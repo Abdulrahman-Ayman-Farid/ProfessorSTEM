@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, session
-from auth import signin, signup
+from auth import signin, signup, logout
 from db import get_db_connection
 from config_agent import SECRET_KEY
 import routes
@@ -37,9 +37,8 @@ def user_dashboard():
     return render_template('user_dashboard.html') 
 
 @app.route('/logout')
-def logout():
-    session.pop('user', None)
-    return redirect(url_for('home'))
+def logout_page():
+    return logout()
 
 @app.errorhandler(404)
 def page_not_found(e):

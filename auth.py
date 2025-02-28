@@ -93,3 +93,9 @@ def signin(request):
             return redirect(url_for('signin_page'))
 
     return render_template('signin.html')
+
+def logout():
+    # Clear all session data
+    session.clear()
+    flash("You have been logged out successfully!", "success")
+    return redirect(url_for('signin_page'))
