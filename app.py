@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, session
+from flask_compress import Compress as FlaskCompress
 from auth import signin, signup, logout
 from db import get_db_connection
 from config_agent import SECRET_KEY
@@ -11,6 +12,20 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
 app.secret_key = SECRET_KEY
+
+# Response compression for faster page loads
+app.config['COMPRESS_MIMETYPES'] = ['text/html', 'text/css', 'text/xml', 'application/json', 'application/javascript']
+app.config['COMPRESS_LEVEL'] = 6
+app.config['COMPRESS_MIN_SIZE'] = 500
+FlaskCompress(app)
+
+
+@app.after_request
+def add_header(response):
+    if request.path.startswith('/static/'):
+        response.headers['Cache-Control'] = 'public, max-age=31536000'
+    return response
+
 
 @app.route('/')
 def home():
@@ -58,6 +73,13 @@ app.add_url_rule('/final_quiz', view_func=routes.final_quiz)
 app.add_url_rule('/submit_final_quiz', view_func=routes.submit_final_quiz, methods=['POST'])
 app.add_url_rule('/final_results', view_func=routes.final_results)
 app.add_url_rule('/comparison', view_func=routes.comparison)
+
+@app.cli.command("optimize-assets")
+def optimize_assets_command():
+    """Minify static CSS and JS assets in place (see optimize_assets.py)."""
+    from optimize_assets import main
+    main()
+
 
 if __name__ == "__main__":
     app.run(debug=True)

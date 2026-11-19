@@ -2,8 +2,8 @@
     <div class="ba md _g nn 2xl:ud-px-0 do ee he h">
       <div class="rc ko/4 qb ee he">
         <a href="/">
-          <img class="nl" src="/static/images/logo-light.svg" alt="Logo Light">
-          <img class="ub ml" src="/static/images/logo-dark.svg" alt="Logo Dark">
+          <img loading="lazy" class="nl" src="/static/images/logo-light.svg" alt="Logo Light">
+          <img loading="lazy" class="ub ml" src="/static/images/logo-dark.svg" alt="Logo Dark">
         </a>
   
         <!-- Hamburger Toggle BTN -->
@@ -54,8 +54,8 @@
         <div class="qb ee se ka bo">
             <label class="ob m-0 h">
               <input type="checkbox" :value="darkMode" @change="darkMode = !darkMode" class="yd rc hc lj g i x aa">
-              <img class="nl" src="/static/images/icon-sun.svg" alt="Sun">
-              <img class="ub ml" src="/static/images/icon-moon.svg" alt="Moon">
+              <img loading="lazy" class="nl" src="/static/images/icon-sun.svg" alt="Sun">
+              <img loading="lazy" class="ub ml" src="/static/images/icon-moon.svg" alt="Moon">
             </label>
   
           {% if session.get('user') %}
