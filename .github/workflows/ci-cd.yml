@@ -40,7 +40,7 @@ jobs:
           pip install -r requirements.txt
           pip install pytest
       - name: Run database migrations
-        run: python create_db.py
+        run: python apply_migrations.py
       - name: Run tests
         run: pytest test_db.py -v
       - name: Verify app imports
