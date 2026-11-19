@@ -33,7 +33,7 @@
     {% if messages %}
       <div class="alert-container" id="alertMessage">
         {% for category, message in messages %}
-          <div class="alert {{ category }}">
+          <div class="alert-{{ category }}">
             <span class="alert-icon">
               {% if category == 'success' %}
                 ✔️
@@ -54,8 +54,8 @@
         <div class="ba sd h w fi tp gr ki dh kp yq">
           <div class="g -ud-z-1 ye l i rc dc/3 fg gg hg xl zl am"></div>
           <div class="g -ud-z-1 p l rc ec/3">
-            <img src="/static/images/shape-dotted-light.svg" alt="Dotted" class="nl">
-            <img src="/static/images/shape-dotted-dark.svg" alt="Dotted" class="ub ml">
+            <img loading="lazy" src="/static/images/shape-dotted-light.svg" alt="Dotted" class="nl">
+            <img loading="lazy" src="/static/images/shape-dotted-dark.svg" alt="Dotted" class="ub ml">
           </div>
       
           <div class="animate_top mj ye uf tl ol pl zh hr dh zq">
@@ -118,6 +118,31 @@
 
     <!-- ====== Back To Top End ===== -->
   <script defer="" src="/static/js/bundle.js"></script>
+
+  <script>
+  (function () {
+    var form = document.querySelector('form[action="/signin"]');
+    if (!form) return;
+    var required = form.querySelectorAll('input[required]');
+    required.forEach(function (input) {
+      input.addEventListener('input', function () {
+        if (input.value.trim() !== '') input.classList.remove('border-red-500');
+      });
+    });
+    form.addEventListener('submit', function (e) {
+      var valid = true;
+      required.forEach(function (input) {
+        if (input.value.trim() === '') {
+          input.classList.add('border-red-500');
+          valid = false;
+        }
+      });
+      if (!valid) e.preventDefault();
+    });
+  })();
+  </script>
+
+  </body></html>
 
 
 </body></html>

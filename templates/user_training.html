@@ -8,13 +8,13 @@
             
         </div>
         <div class="g -ud-z-1 p l rc ec/3">
-            <img src="/static/images/shape-dotted-light.svg" alt="Dotted" class="nl">
-            <img src="/static/images/shape-dotted-dark.svg" alt="Dotted" class="ub ml">
+            <img loading="lazy" src="/static/images/shape-dotted-light.svg" alt="Dotted" class="nl">
+            <img loading="lazy" src="/static/images/shape-dotted-dark.svg" alt="Dotted" class="ub ml">
             
         </div>
 
         <div class="animate_top mj ye uf tl ol pl zh hr dh zq">
-            <img src="/static/images/shape-04.png" alt="Man" class="g -ud-top-25 -ud-left-15 wn -ud-z-1">
+            <img loading="lazy" src="/static/images/shape-04.png" alt="Man" class="g -ud-top-25 -ud-left-15 wn -ud-z-1">
   
             <div class="text-center mb-8">
                 <h4 class="ej dm oi bj ra mb-4 text-2xl"> ProfessorSTEM: Your AI Learning Companion</h4>
@@ -74,9 +74,9 @@
                             </div>
                         </div>
                     </div>
-                                <img src="/static/images/shape-05.png" alt="Doodle" class="g k j -ud-z-1">
-                                <img src="/static/images/shape-dotted-light-02.svg" alt="Dotted" class="g i l -ud-z-1 nl">
-                                <img src="/static/images/shape-dotted-dark-02.svg" alt="Dotted" class="g i l -ud-z-1 ub ml">
+                                <img loading="lazy" src="/static/images/shape-05.png" alt="Doodle" class="g k j -ud-z-1">
+                                <img loading="lazy" src="/static/images/shape-dotted-light-02.svg" alt="Dotted" class="g i l -ud-z-1 nl">
+                                <img loading="lazy" src="/static/images/shape-dotted-dark-02.svg" alt="Dotted" class="g i l -ud-z-1 ub ml">
                                 
                         <div class="ej dm ta text-center mt-6 text-lg font-medium"></div>
                         <div class="mi">
@@ -118,6 +118,94 @@
     </div>
 </section>
 
+<script>
+(function () {
+  var age = document.getElementById('age');
+  var grade = document.getElementById('grade');
+  var gradeValue = document.getElementById('gradeValue');
+  var schoolLevel = document.getElementById('school_level');
+  var subject = document.getElementById('subject');
+  var topic = document.getElementById('topic');
+  var form = age && age.form ? age.form : (topic && topic.form ? topic.form : null);
+
+  function showError(input, message) {
+    input.classList.add('border-red-500');
+    var existing = input.parentElement.querySelector('.field-error');
+    if (!existing) {
+      var p = document.createElement('p');
+      p.className = 'text-red-500 text-sm mt-1 field-error';
+      p.textContent = message;
+      input.parentElement.appendChild(p);
+    }
+  }
+
+  function clearError(input) {
+    input.classList.remove('border-red-500');
+    var existing = input.parentElement.querySelector('.field-error');
+    if (existing) existing.remove();
+  }
+
+  if (age) {
+    age.addEventListener('input', function () {
+      var n = Number(age.value);
+      if (age.value === '' || isNaN(n) || n < 5 || n > 18) {
+        showError(age, 'Age must be between 5 and 18');
+      } else {
+        clearError(age);
+      }
+    });
+  }
+
+  if (grade) {
+    if (gradeValue) {
+      grade.addEventListener('input', function () {
+        gradeValue.textContent = grade.value;
+      });
+    } else {
+      var span = document.createElement('span');
+      span.id = 'gradeValue';
+      span.className = 'text-blue-500';
+      span.textContent = grade.value;
+      grade.parentElement.appendChild(span);
+      grade.addEventListener('input', function () {
+        span.textContent = grade.value;
+      });
+    }
+  }
+
+  if (schoolLevel) {
+    schoolLevel.addEventListener('input', function () {});
+  }
+  if (subject) {
+    subject.addEventListener('input', function () {});
+  }
+
+  if (topic) {
+    topic.addEventListener('input', function () {
+      if (topic.value.trim() !== '') clearError(topic);
+    });
+  }
+
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      var valid = true;
+      if (topic && topic.value.trim() === '') {
+        showError(topic, 'Topic is required');
+        valid = false;
+      }
+      if (age) {
+        var n = Number(age.value);
+        if (age.value === '' || isNaN(n) || n < 5 || n > 18) {
+          showError(age, 'Age must be between 5 and 18');
+          valid = false;
+        }
+      }
+      if (!valid) e.preventDefault();
+    });
+  }
+})();
+</script>
+
 <!-- Features Section -->
 <section class="zg ep oq">
     <div class="ba nd _g nn pq">
@@ -125,7 +213,7 @@
             <!-- Feature Item -->
             <div class="animate_top hf of rj ye ug lq yj el km pl sl">
                 <div class="qb ee ge ze wf sc xb">
-                    <img src="/static/images/icon-01.svg" alt="Personalized Learning">
+                    <img loading="lazy" src="/static/images/icon-01.svg" alt="Personalized Learning">
                 </div>
                 <h3 class="aj qi kr ej dm ia ga"> Personalized Learning</h3>
                 <p>AI-powered lessons tailored to your grade level and learning style.</p>
@@ -134,7 +222,7 @@
             <!-- Feature Item -->
             <div class="animate_top hf of rj ye ug lq yj el km pl sl">
                 <div class="qb ee ge ze wf sc xb">
-                    <img src="/static/images/icon-02.svg" alt="Adaptive Assessment">
+                    <img loading="lazy" src="/static/images/icon-02.svg" alt="Adaptive Assessment">
                 </div>
                 <h3 class="aj qi kr ej dm ia ga"> Adaptive Assessment</h3>
                 <p>Real-time feedback and progress tracking to optimize your learning journey.</p>
@@ -143,7 +231,7 @@
             <!-- Feature Item -->
             <div class="animate_top hf of rj ye ug lq yj el km pl sl">
                 <div class="qb ee ge ze wf sc xb">
-                    <img src="/static/images/icon-03.svg" alt="Interactive Practice">
+                    <img loading="lazy" src="/static/images/icon-03.svg" alt="Interactive Practice">
                 </div>
                 <h3 class="aj qi kr ej dm ia ga"> Interactive Practice</h3>
                 <p>Engaging quizzes and exercises to reinforce your understanding.</p>

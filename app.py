@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, session
+from flask_compress import Compress as FlaskCompress
 from auth import signin, signup, logout
 from db import get_db_connection
 from config_agent import SECRET_KEY
@@ -8,9 +9,47 @@ import routes
 from dotenv import load_dotenv
 load_dotenv()
 
+from logging_config import setup_logging
+
 app = Flask(__name__)
+setup_logging(app)
 app.secret_key = os.getenv("SECRET_KEY")
 app.secret_key = SECRET_KEY
+
+# Response compression for faster page loads
+app.config['COMPRESS_MIMETYPES'] = ['text/html', 'text/css', 'text/xml', 'application/json', 'application/javascript']
+app.config['COMPRESS_LEVEL'] = 6
+app.config['COMPRESS_MIN_SIZE'] = 500
+FlaskCompress(app)
+
+# Sentry error tracking
+import os
+if os.getenv('SENTRY_DSN'):
+    import sentry_sdk
+    from sentry_sdk.integrations.flask import FlaskIntegration
+    sentry_sdk.init(
+        dsn=os.getenv('SENTRY_DSN'),
+        integrations=[FlaskIntegration()],
+        traces_sample_rate=1.0,
+        environment=os.getenv('FLASK_ENV', 'development')
+    )
+
+
+@app.after_request
+def add_header(response):
+    # Security headers
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'DENY'
+    response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co"
+
+    # Cache headers for static files
+    if request.path.startswith('/static/'):
+        response.headers['Cache-Control'] = 'public, max-age=31536000'
+
+    return response
+
 
 @app.route('/')
 def home():
@@ -58,6 +97,19 @@ app.add_url_rule('/final_quiz', view_func=routes.final_quiz)
 app.add_url_rule('/submit_final_quiz', view_func=routes.submit_final_quiz, methods=['POST'])
 app.add_url_rule('/final_results', view_func=routes.final_results)
 app.add_url_rule('/comparison', view_func=routes.comparison)
+
+@app.cli.command("optimize-assets")
+def optimize_assets_command():
+    """Minify static CSS and JS assets in place (see optimize_assets.py)."""
+    from optimize_assets import main
+    main()
+
+
+@app.route('/api/health')
+def health_check():
+    """Lightweight health check endpoint for monitoring."""
+    return {'status': 'healthy', 'timestamp': __import__('datetime').datetime.utcnow().isoformat()}, 200
+
 
 if __name__ == "__main__":
     app.run(debug=True)

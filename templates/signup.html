@@ -33,7 +33,7 @@
     {% if messages %}
       <div class="alert-container" id="alertMessage">
         {% for category, message in messages %}
-          <div class="alert {{ category }}">
+          <div class="alert-{{ category }}">
             <span class="alert-icon">
               {% if category == 'success' %}
                 ✔️
@@ -54,8 +54,8 @@
         <div class="ba sd h w fi lg:pt-15 xl:pt-20 ki dh kp yq">
             <div class="g -ud-z-1 ye l i rc dc/3 fg gg hg xl zl am"></div>
             <div class="g -ud-z-1 p l rc ec/3">
-                <img src="/static/images/shape-dotted-light.svg" alt="Dotted" class="nl">
-                <img src="/static/images/shape-dotted-dark.svg" alt="Dotted" class="ub ml">
+                <img loading="lazy" src="/static/images/shape-dotted-light.svg" alt="Dotted" class="nl">
+                <img loading="lazy" src="/static/images/shape-dotted-dark.svg" alt="Dotted" class="ub ml">
             </div>
     
             <div class="animate_top mj ye uf tl ol pl zh hr dh zq">
@@ -120,7 +120,32 @@
 </button>
 
     <!-- ====== Back To Top End ===== -->
-  <script defer="" src="/static/js/bundle.js"></script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'90995b68cc80666a',t:'MTczODE1NTEyMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;"></iframe><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" data-cf-beacon="{" rayid":"90995b68cc80666a","version":"2025.1.0","r":1,"token":"9a6015d415bb4773a0bff22543062d3b","servertiming":{"name":{"cfextpri":true,"cfl4":true,"cfspeedbrain":true,"cfcachestatus":true}}}"="" crossorigin="anonymous"></script>
+  <script defer="" src="/static/js/bundle.js"></script>
+
+  <script>
+  (function () {
+    var form = document.querySelector('form[action="/signup"]');
+    if (!form) return;
+    var required = form.querySelectorAll('input[required]');
+    required.forEach(function (input) {
+      input.addEventListener('input', function () {
+        if (input.value.trim() !== '') input.classList.remove('border-red-500');
+      });
+    });
+    form.addEventListener('submit', function (e) {
+      var valid = true;
+      required.forEach(function (input) {
+        if (input.value.trim() === '') {
+          input.classList.add('border-red-500');
+          valid = false;
+        }
+      });
+      if (!valid) e.preventDefault();
+    });
+  })();
+  </script>
+
+  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'90995b68cc80666a',t:'MTczODE1NTEyMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;"></iframe><script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" data-cf-beacon="{" rayid":"90995b68cc80666a","version":"2025.1.0","r":1,"token":"9a6015d415bb4773a0bff22543062d3b","servertiming":{"name":{"cfextpri":true,"cfl4":true,"cfspeedbrain":true,"cfcachestatus":true}}}"="" crossorigin="anonymous"></script>
 
 
 </body></html>

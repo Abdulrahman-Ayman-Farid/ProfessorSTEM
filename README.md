@@ -103,6 +103,14 @@ An innovative AI-powered STEM education platform that revolutionizes how student
    ```
    The application will be available at `http://localhost:5000`
 
+## 📚 Documentation
+
+For deeper dives into the platform, see the following guides:
+
+- [Startup & Business Case](docs/startup-and-business-case.md)
+- [Technical Architecture & Operations](docs/technical-architecture.md)
+- [Database Backup & Recovery](docs/database-backup.md)
+
 ### Deployment
 - Supports deployment on Vercel (vercel.json included)
 - Compatible with any WSGI-compliant hosting service

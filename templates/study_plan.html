@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div id="loading-overlay" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50" style="display: none;">
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+        <p class="text-lg font-medium">Creating your personalized study plan...</p>
+    </div>
+</div>
+
 <!-- Study Plan Section -->
 <section class="th rn dr uh er ve">
     <div class="ba md _g nn pq">
@@ -70,11 +77,11 @@
                     </div>
                     <div class="animate_right lo" data-sr-id="63" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transition: all, opacity 2.8s cubic-bezier(0.5, 0, 0, 1), transform 2.8s cubic-bezier(0.5, 0, 0, 1);">
                         <div class="qb ee fe cq">
-                            <img src="/static/images/shape-06.png" alt="Motivation" class="ub yp">
+                            <img loading="lazy" src="/static/images/shape-06.png" alt="Motivation" class="ub yp">
                             <a href="/final_quiz" class="sb ee je bj fj em tf ul xe yg xg _k mm">
                                 Stay Determined!
-                                <img src="/static/images/icon-arrow-dark.svg" alt="Arrow" class="nl">
-                                <img src="/static/images/icon-arrow-light.svg" alt="Arrow" class="ub ml">
+                                <img loading="lazy" src="/static/images/icon-arrow-dark.svg" alt="Arrow" class="nl">
+                                <img loading="lazy" src="/static/images/icon-arrow-light.svg" alt="Arrow" class="ub ml">
                             </a>
                         </div>
                     </div>
@@ -294,4 +301,9 @@
             }
 
 </style>
+<script>
+    if ({{ 'true' if session.get('loading') else 'false' }}) {
+        document.getElementById('loading-overlay').style.display = 'flex';
+    }
+</script>
 {% endblock %}
