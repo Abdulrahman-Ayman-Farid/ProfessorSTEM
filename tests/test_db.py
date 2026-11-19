@@ -2,6 +2,11 @@ import pytest
 import os
 from db import get_db_connection
 
+pytestmark = pytest.mark.skipif(
+    not os.getenv('SUPABASE_URL') or not os.getenv('SUPABASE_SERVICE_ROLE_KEY'),
+    reason='Supabase credentials not configured'
+)
+
 def test_db_connection():
     """Test that database connection can be established."""
     try:

@@ -1,13 +1,13 @@
 import logging
 import json
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from flask import g, request
 
 class StructuredFormatter(logging.Formatter):
     def format(self, record):
         log_data = {
-            'timestamp': datetime.utcnow().isoformat() + 'Z',
+            'timestamp': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
             'level': record.levelname,
             'message': record.getMessage(),
             'module': record.module,
@@ -46,11 +46,11 @@ def setup_logging(app):
         g.request_id = str(uuid.uuid4())
         g.route = request.path
         g.method = request.method
-        g.start_time = datetime.utcnow()
+        g.start_time = datetime.now(timezone.utc)
 
     @app.after_request
     def log_request(response):
         g.status_code = response.status_code
-        g.latency_ms = (datetime.utcnow() - g.start_time).total_seconds() * 1000
+        g.latency_ms = (datetime.now(timezone.utc) - g.start_time).total_seconds() * 1000
         app.logger.info(f"Request completed: {g.method} {g.route} -> {g.status_code} ({g.latency_ms:.2f}ms)")
         return response
