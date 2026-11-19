@@ -59,6 +59,7 @@ def first_quiz():
     if 'first_quiz' not in session:
         return redirect(url_for('user_training'))
     
+    session['loading'] = True
     try:
         quiz_data = session['first_quiz']
         
@@ -84,13 +85,15 @@ def first_quiz():
         end_idx = min((current_page + 1) * 5, len(questions))
         current_questions = questions[start_idx:end_idx]
         
-        return render_template(
+        response = render_template(
             'first_quiz.html',
             questions=current_questions,
             current_page=current_page,
             total_pages=(len(questions) + 4) // 5,
             start_idx=start_idx
         )
+        session.pop('loading', None)
+        return response
     except Exception as e:
         logger.error(f"Error displaying first quiz: {str(e)}")
         flash('An error occurred. Please try again.', 'error')
@@ -171,6 +174,7 @@ def study_plan():
     if 'first_quiz' not in session:
         return redirect(url_for('user_training'))
     
+    session['loading'] = True
     try:
         quiz_data = session['first_quiz']
         subject = quiz_data['subject']
@@ -321,12 +325,14 @@ def study_plan():
             'generated': False,
         }
         
-        return render_template(
+        response = render_template(
             'study_plan.html',
             study_plan=study_plan,
             guide=guide,
             next_url=url_for('final_quiz')
         )
+        session.pop('loading', None)
+        return response
     except Exception as e:
         logger.error(f"Error generating study plan: {str(e)}")
         flash('An error occurred. Please try again.', 'error')
@@ -336,6 +342,7 @@ def final_quiz():
     if 'final_quiz' not in session:
         return redirect(url_for('user_training'))
     
+    session['loading'] = True
     try:
         quiz_data = session['final_quiz']
         
@@ -361,13 +368,15 @@ def final_quiz():
         end_idx = min((current_page + 1) * 5, len(questions))
         current_questions = questions[start_idx:end_idx]
         
-        return render_template(
+        response = render_template(
             'final_quiz.html',
             questions=current_questions,
             current_page=current_page,
             total_pages=(len(questions) + 4) // 5,
             start_idx=start_idx
         )
+        session.pop('loading', None)
+        return response
     except Exception as e:
         logger.error(f"Error displaying final quiz: {str(e)}")
         flash('An error occurred. Please try again.', 'error')

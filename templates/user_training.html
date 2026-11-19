@@ -118,6 +118,94 @@
     </div>
 </section>
 
+<script>
+(function () {
+  var age = document.getElementById('age');
+  var grade = document.getElementById('grade');
+  var gradeValue = document.getElementById('gradeValue');
+  var schoolLevel = document.getElementById('school_level');
+  var subject = document.getElementById('subject');
+  var topic = document.getElementById('topic');
+  var form = age && age.form ? age.form : (topic && topic.form ? topic.form : null);
+
+  function showError(input, message) {
+    input.classList.add('border-red-500');
+    var existing = input.parentElement.querySelector('.field-error');
+    if (!existing) {
+      var p = document.createElement('p');
+      p.className = 'text-red-500 text-sm mt-1 field-error';
+      p.textContent = message;
+      input.parentElement.appendChild(p);
+    }
+  }
+
+  function clearError(input) {
+    input.classList.remove('border-red-500');
+    var existing = input.parentElement.querySelector('.field-error');
+    if (existing) existing.remove();
+  }
+
+  if (age) {
+    age.addEventListener('input', function () {
+      var n = Number(age.value);
+      if (age.value === '' || isNaN(n) || n < 5 || n > 18) {
+        showError(age, 'Age must be between 5 and 18');
+      } else {
+        clearError(age);
+      }
+    });
+  }
+
+  if (grade) {
+    if (gradeValue) {
+      grade.addEventListener('input', function () {
+        gradeValue.textContent = grade.value;
+      });
+    } else {
+      var span = document.createElement('span');
+      span.id = 'gradeValue';
+      span.className = 'text-blue-500';
+      span.textContent = grade.value;
+      grade.parentElement.appendChild(span);
+      grade.addEventListener('input', function () {
+        span.textContent = grade.value;
+      });
+    }
+  }
+
+  if (schoolLevel) {
+    schoolLevel.addEventListener('input', function () {});
+  }
+  if (subject) {
+    subject.addEventListener('input', function () {});
+  }
+
+  if (topic) {
+    topic.addEventListener('input', function () {
+      if (topic.value.trim() !== '') clearError(topic);
+    });
+  }
+
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      var valid = true;
+      if (topic && topic.value.trim() === '') {
+        showError(topic, 'Topic is required');
+        valid = false;
+      }
+      if (age) {
+        var n = Number(age.value);
+        if (age.value === '' || isNaN(n) || n < 5 || n > 18) {
+          showError(age, 'Age must be between 5 and 18');
+          valid = false;
+        }
+      }
+      if (!valid) e.preventDefault();
+    });
+  }
+})();
+</script>
+
 <!-- Features Section -->
 <section class="zg ep oq">
     <div class="ba nd _g nn pq">

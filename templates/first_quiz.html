@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div id="loading-overlay" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50" style="display: none;">
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+        <p class="text-lg font-medium">Generating your quiz...</p>
+    </div>
+</div>
+
 <!-- First Quiz Section -->
 <section class="th rn dr uh er ve">
     <div class="ba md _g nn pq">
@@ -117,4 +124,9 @@
         </form>
     </div>
 </section>
+<script>
+    if ({{ 'true' if session.get('loading') else 'false' }}) {
+        document.getElementById('loading-overlay').style.display = 'flex';
+    }
+</script>
 {% endblock %}
