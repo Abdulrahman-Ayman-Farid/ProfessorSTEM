@@ -9,7 +9,10 @@ import routes
 from dotenv import load_dotenv
 load_dotenv()
 
+from logging_config import setup_logging
+
 app = Flask(__name__)
+setup_logging(app)
 app.secret_key = os.getenv("SECRET_KEY")
 app.secret_key = SECRET_KEY
 
@@ -19,11 +22,32 @@ app.config['COMPRESS_LEVEL'] = 6
 app.config['COMPRESS_MIN_SIZE'] = 500
 FlaskCompress(app)
 
+# Sentry error tracking
+import os
+if os.getenv('SENTRY_DSN'):
+    import sentry_sdk
+    from sentry_sdk.integrations.flask import FlaskIntegration
+    sentry_sdk.init(
+        dsn=os.getenv('SENTRY_DSN'),
+        integrations=[FlaskIntegration()],
+        traces_sample_rate=1.0,
+        environment=os.getenv('FLASK_ENV', 'development')
+    )
+
 
 @app.after_request
 def add_header(response):
+    # Security headers
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'DENY'
+    response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co"
+
+    # Cache headers for static files
     if request.path.startswith('/static/'):
         response.headers['Cache-Control'] = 'public, max-age=31536000'
+
     return response
 
 
