@@ -81,5 +81,11 @@ def optimize_assets_command():
     main()
 
 
+@app.route('/api/health')
+def health_check():
+    """Lightweight health check endpoint for monitoring."""
+    return {'status': 'healthy', 'timestamp': __import__('datetime').datetime.utcnow().isoformat()}, 200
+
+
 if __name__ == "__main__":
     app.run(debug=True)
